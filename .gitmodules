@@ -1,0 +1,3 @@
+[submodule "vendor/detectron2"]
+	path = vendor/detectron2
+	url = https://github.com/facebookresearch/detectron2

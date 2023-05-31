@@ -1,0 +1,20 @@
+name: 4D-humans
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch-cuda=11.8
+  - torchvision
+  - pip
+  - pip:
+    - pytorch-lightning
+    - smplx==0.1.28
+    - pyrender
+    - opencv-python
+    - yacs
+    - scikit-image
+    - einops
+    - timm
+    - -e ./vendor/detectron2/
