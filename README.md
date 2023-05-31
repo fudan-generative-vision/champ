@@ -49,7 +49,7 @@ python demo.py \
 Coming soon.
 
 ## Training and evaluation
-Cmoing soon.
+Coming soon.
 
 ## Acknowledgements
 Parts of the code are taken or adapted from the following repos:
