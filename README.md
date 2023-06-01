@@ -3,8 +3,7 @@ Code repository for the paper:
 **Humans in 4D: Reconstructing and Tracking Humans with Transformers**
 [Shubham Goel](https://people.eecs.berkeley.edu/~shubham-goel/), [Georgios Pavlakos](https://geopavlakos.github.io/), [Jathushan Rajasegaran](http://people.eecs.berkeley.edu/~jathushan/), [Angjoo Kanazawa](https://people.eecs.berkeley.edu/~kanazawa/)<sup>\*</sup>, [Jitendra Malik](http://people.eecs.berkeley.edu/~malik/)<sup>\*</sup>
 
-<!-- [![arXiv](https://img.shields.io/badge/arXiv-2112.04477-00ff00.svg)](arXiv preprint 2023)        -->
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)]([https://people.eecs.berkeley.edu/~jathushan/PHALP/](https://shubham-goel.github.io/4dhumans/))     [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/drive/1zeHvAcvflsty2p9Hgr49-AhQjkSWCXjr?usp=sharing](https://colab.research.google.com/drive/1Ex4gE5v1bPR3evfhtG7sDHxQGsWwNwby?usp=sharing))
+[![arXiv](https://img.shields.io/badge/arXiv-2305.20091-00ff00.svg)](https://arxiv.org/pdf/2305.20091.pdf)  [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://shubham-goel.github.io/4dhumans/)     [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ex4gE5v1bPR3evfhtG7sDHxQGsWwNwby?usp=sharing)
 
 ![teaser](assets/teaser.png)
 
