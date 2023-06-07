@@ -82,7 +82,7 @@ def eval_pose(pred_joints, gt_joints) -> Tuple[np.array, np.array]:
     # Absolute error (MPJPE)
     mpjpe = torch.sqrt(((pred_joints - gt_joints) ** 2).sum(dim=-1)).mean(dim=-1).cpu().numpy()
 
-    # Reconstuction_error
+    # Reconstruction_error
     r_error = reconstruction_error(pred_joints, gt_joints).cpu().numpy()
     return 1000 * mpjpe, 1000 * r_error
 
