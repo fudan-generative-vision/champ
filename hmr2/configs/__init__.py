@@ -3,6 +3,7 @@ from typing import Dict
 from yacs.config import CfgNode as CN
 
 CACHE_DIR = os.path.join(os.environ.get("HOME"), ".cache")
+CACHE_DIR_4DHUMANS = os.path.join(CACHE_DIR, "4DHumans")
 
 def to_lower(x: Dict) -> Dict:
     """
@@ -90,7 +91,7 @@ def get_config(config_file: str, merge: bool = True, update_cachedir: bool = Fal
       def update_path(path: str) -> str:
         if os.path.isabs(path):
           return path
-        return os.path.join(CACHE_DIR, '4DHumans', path)
+        return os.path.join(CACHE_DIR_4DHUMANS, path)
 
       cfg.SMPL.MODEL_PATH = update_path(cfg.SMPL.MODEL_PATH)
       cfg.SMPL.JOINT_REGRESSOR_EXTRA = update_path(cfg.SMPL.JOINT_REGRESSOR_EXTRA)
