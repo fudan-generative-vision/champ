@@ -5,15 +5,15 @@ import os
 import cv2
 import numpy as np
 
-from hmr2.configs import get_config
-from hmr2.models import HMR2
+from hmr2.configs import get_config, CACHE_DIR
+from hmr2.models import HMR2, download_models
 from hmr2.utils import recursive_to
 from hmr2.datasets.vitdet_dataset import ViTDetDataset, DEFAULT_MEAN, DEFAULT_STD
 from hmr2.utils.renderer import Renderer
 
 LIGHT_BLUE=(0.65098039,  0.74117647,  0.85882353)
 
-DEFAULT_CHECKPOINT='logs/train/multiruns/hmr2/0/checkpoints/epoch=35-step=1000000.ckpt'
+DEFAULT_CHECKPOINT=f'{CACHE_DIR}/4DHumans/logs/train/multiruns/hmr2/0/checkpoints/epoch=35-step=1000000.ckpt'
 parser = argparse.ArgumentParser(description='HMR2 demo code')
 parser.add_argument('--checkpoint', type=str, default=DEFAULT_CHECKPOINT, help='Path to pretrained model checkpoint')
 parser.add_argument('--img_folder', type=str, default='example_data/images', help='Folder with input images')
@@ -23,10 +23,13 @@ parser.add_argument('--batch_size', type=int, default=1, help='Batch size for in
 
 args = parser.parse_args()
 
+# Download checkpoints and data
+download_models()
+
 # Setup HMR2.0 model
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 model_cfg = str(Path(args.checkpoint).parent.parent / 'model_config.yaml')
-model_cfg = get_config(model_cfg)
+model_cfg = get_config(model_cfg, update_cachedir=True)
 model = HMR2.load_from_checkpoint(args.checkpoint, strict=False, cfg=model_cfg).to(device)
 model.eval()
 

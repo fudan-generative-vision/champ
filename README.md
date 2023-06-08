@@ -31,10 +31,7 @@ conda activate 4D-humans
 ```
 
 ## Download checkpoints and SMPL models
-To download the checkpoints and SMPL models, run
-```bash
-./fetch_data.sh
-```
+All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
 
 ## Run demo on images
 You may now run our demo to 3D reconstruct humans in images using the following command, which will run ViTDet and HMR2.0 on all images in the specified `--img_folder` and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
