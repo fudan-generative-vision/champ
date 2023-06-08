@@ -8,20 +8,11 @@ Code repository for the paper:
 
 ![teaser](assets/teaser.png)
 
-## Download dependencies
-Our demo code depends on [detectron2](https://github.com/facebookresearch/detectron2) to detect humans.
-To automatically download this dependency, clone this repo using `--recursive`, or run `git submodule update --init` if you've already cloned the repository. You should see the detectron2 source code at `vendor/detectron2`.
+## Installation
+First, clone the repo. Then, we recommend creating a clean [conda](https://docs.conda.io/) environment and installing all dependencies, as follows:
 ```bash
-git clone https://github.com/shubham-goel/4D-Humans.git --recursive
-# OR
 git clone https://github.com/shubham-goel/4D-Humans.git
 cd 4D-Humans
-git submodule update --init
-```
-
-## Installation
-We recommend creating a clean [conda](https://docs.conda.io/) environment and installing all dependencies, as follows:
-```bash
 conda env create -f environment.yml
 ```
 
