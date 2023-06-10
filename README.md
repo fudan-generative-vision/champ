@@ -47,7 +47,7 @@ python track.py video.source="/path/to/video.mp4" video.output_dir=demo_out/vide
 python track.py video.source="/path/to/frames_folder/" video.output_dir=demo_out/video/
 
 # Run on a youtube link (depends on pytube working properly)
-python track.py video.source="https://www.youtube.com/watch?v=xEH_5T9jMVU" video.output_dir=demo_out/video/
+python track.py video.source=\'"https://www.youtube.com/watch?v=xEH_5T9jMVU"\' video.output_dir=demo_out/video/
 ```
 The output directory will contain a video rendering of the tracklets, as well as a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
 
