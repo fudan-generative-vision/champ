@@ -8,7 +8,7 @@ Code repository for the paper:
 
 ![teaser](assets/teaser.png)
 
-## Installation
+## Installation and Setup
 First, clone the repo. Then, we recommend creating a clean [conda](https://docs.conda.io/) environment and installing all dependencies, as follows:
 ```bash
 git clone https://github.com/shubham-goel/4D-Humans.git
@@ -21,11 +21,10 @@ After the installation is complete you can activate the conda environment by run
 conda activate 4D-humans
 ```
 
-## Download checkpoints and SMPL models
 All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
 
 ## Run demo on images
-You may now run our demo to 3D reconstruct humans in images using the following command, which will run ViTDet and HMR2.0 on all images in the specified `--img_folder` and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
+The following command will run ViTDet and HMR2.0 on all images in the specified `--img_folder`, and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
 ```bash
 python demo.py \
     --img_folder example_data/images \
@@ -33,8 +32,24 @@ python demo.py \
     --batch_size=48 --side_view
 ```
 
-## Run demo on videos
-Coming soon.
+## Run tracking demo on videos
+Our tracker builds on PHALP, please install that first:
+```bash
+pip install git+https://github.com/brjathu/PHALP.git
+```
+
+Now, run `track.py` to reconstruct and track humans in any video. Input video source may be a video file, a folder of frames, or a youtube link:
+```bash
+# Run on video file
+python track.py video.source="/path/to/video.mp4" video.output_dir=demo_out/video/
+
+# Run on extracted frames
+python track.py video.source="/path/to/frames_folder/" video.output_dir=demo_out/video/
+
+# Run on a youtube link (depends on pytube working properly)
+python track.py video.source="https://www.youtube.com/watch?v=xEH_5T9jMVU" video.output_dir=demo_out/video/
+```
+The output directory will contain a video rendering of the tracklets, as well as a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
 
 ## Training and evaluation
 Coming soon.
