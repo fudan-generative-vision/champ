@@ -9,16 +9,20 @@ Code repository for the paper:
 ![teaser](assets/teaser.png)
 
 ## Installation and Setup
-First, clone the repo. Then, we recommend creating a clean [conda](https://docs.conda.io/) environment and installing all dependencies, as follows:
+First, clone the repo. Then, we recommend creating a clean [conda](https://docs.conda.io/) environment, installing all dependencies, and finally activating the environment, as follows:
 ```bash
 git clone https://github.com/shubham-goel/4D-Humans.git
 cd 4D-Humans
 conda env create -f environment.yml
+conda activate 4D-humans
 ```
 
-After the installation is complete you can activate the conda environment by running:
-```
+If conda is too slow, you can use pip:
+```bash
+conda create --name 4D-humans python=3.10
 conda activate 4D-humans
+pip install torch
+pip install -e .
 ```
 
 All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
@@ -51,7 +55,15 @@ python track.py video.source=\'"https://www.youtube.com/watch?v=xEH_5T9jMVU"\' v
 ```
 The output directory will contain a video rendering of the tracklets, as well as a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
 
-## Training and evaluation
+## Training
+Download the [training data](https://www.dropbox.com/sh/mjdwu59fxuhls5h/AACQ6FCGSrggUXmRzuubRHXIa) to `./hmr2_training_data/`, then start training using the following command:
+```
+bash fetch_training_data.sh
+python train/train.py exp_name=hmr2 data=mix_all experiment=hmr_vit_transformer trainer=gpu launcher=local
+```
+Checkpoints and logs will be saved to `./logs/`. We trained on 8 A100 GPUs for 7 days using PyTorch 1.13.1 and PyTorch-Lightning 1.8.1 with CUDA 11.6 on a Linux system. You may adjust batch size and number of GPUs per your convenience.
+
+## Evaluation
 Coming soon.
 
 ## Acknowledgements
@@ -68,11 +80,11 @@ Additionally, we thank [StabilityAI](https://stability.ai/) for a generous compu
 ## Citing
 If you find this code useful for your research, please consider citing the following paper:
 
-```
-@article{4DHUMANS,
+```bibtex
+@article{goel2023humans,
     title={Humans in 4{D}: Reconstructing and Tracking Humans with Transformers},
     author={Goel, Shubham and Pavlakos, Georgios and Rajasegaran, Jathushan and Kanazawa, Angjoo and Malik, Jitendra},
-    journal={arXiv preprint},
+    journal={arXiv preprint arXiv:2305.20091},
     year={2023}
 }
 ```

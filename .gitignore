@@ -11,6 +11,7 @@
 /discord_sandbox/
 /demo_out/
 token_channel.csv
+/hmr2_training_data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -66,8 +66,8 @@ def obj2nmr_uvmap(ft, vt, tex_size=6):
     # range [0, 1] -> [-1, 1]
     uv_map_for_verts = (2 * uv_map_for_verts) - 1
 
-    alpha = np.arange(tex_size, dtype=np.float) / (tex_size - 1)
-    beta = np.arange(tex_size, dtype=np.float) / (tex_size - 1)
+    alpha = np.arange(tex_size, dtype=float) / (tex_size - 1)
+    beta = np.arange(tex_size, dtype=float) / (tex_size - 1)
     import itertools
     # Barycentric coordinate values
     coords = np.stack([p for p in itertools.product(*[alpha, beta])])

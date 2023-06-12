@@ -1,0 +1,13 @@
+# @package _global_
+
+DATASETS:
+  # Data filtering during training
+  SUPPRESS_KP_CONF_THRESH: 0.3
+  FILTER_NUM_KP: 4
+  FILTER_NUM_KP_THRESH: 0.0
+  FILTER_REPROJ_THRESH: 31000
+
+  SUPPRESS_BETAS_THRESH: 3.0
+  SUPPRESS_BAD_POSES: True
+  POSES_BETAS_SIMULTANEOUS: True
+  FILTER_NO_POSES: False # If True, filters images that don't have poses
