@@ -5,6 +5,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
+  - pytorch
   - pytorch-cuda=11.8
   - torchvision
   - pip
@@ -17,4 +18,12 @@ dependencies:
     - scikit-image
     - einops
     - timm
-    - -e ./vendor/detectron2/
+    - git+https://github.com/facebookresearch/detectron2
+
+    # For training
+    - rich
+    - hydra-core
+    - hydra-submitit-launcher
+    - hydra-colorlog
+    - pyrootutils
+    - webdataset

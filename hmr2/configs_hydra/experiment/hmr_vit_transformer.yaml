@@ -1,0 +1,51 @@
+# @package _global_
+
+defaults:
+  - default.yaml
+
+GENERAL:
+  TOTAL_STEPS: 1_000_000
+  LOG_STEPS: 1000
+  VAL_STEPS: 1000
+  CHECKPOINT_STEPS: 10000
+  CHECKPOINT_SAVE_TOP_K: 1
+  NUM_WORKERS: 6
+  PREFETCH_FACTOR: 2
+
+TRAIN:
+  LR: 1e-5
+  WEIGHT_DECAY: 1e-4
+  BATCH_SIZE: 48
+  LOSS_REDUCTION: mean
+  NUM_TRAIN_SAMPLES: 2
+  NUM_TEST_SAMPLES: 64
+  POSE_2D_NOISE_RATIO: 0.01
+  SMPL_PARAM_NOISE_RATIO: 0.005
+
+MODEL:
+  IMAGE_SIZE: 256
+  IMAGE_MEAN: [0.485, 0.456, 0.406]
+  IMAGE_STD: [0.229, 0.224, 0.225]
+  BACKBONE:
+    TYPE: vit
+    PRETRAINED_WEIGHTS: hmr2_training_data/vitpose_backbone.pth
+  SMPL_HEAD:
+    TYPE: transformer_decoder
+    IN_CHANNELS: 2048
+    TRANSFORMER_DECODER:
+      depth: 6
+      heads: 8
+      mlp_dim: 1024
+      dim_head: 64
+      dropout: 0.0
+      emb_dropout: 0.0
+      norm: layer
+      context_dim: 1280 # from vitpose-H
+
+LOSS_WEIGHTS:
+  KEYPOINTS_3D: 0.05
+  KEYPOINTS_2D: 0.01
+  GLOBAL_ORIENT: 0.001
+  BODY_POSE: 0.001
+  BETAS: 0.0005
+  ADVERSARIAL: 0.0005

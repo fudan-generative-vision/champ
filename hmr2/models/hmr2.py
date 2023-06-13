@@ -6,12 +6,14 @@ from yacs.config import CfgNode
 
 from ..utils import SkeletonRenderer, MeshRenderer
 from ..utils.geometry import aa_to_rotmat, perspective_projection
+from ..utils.pylogger import get_pylogger
 from .backbones import create_backbone
 from .heads import build_smpl_head
 from .discriminator import Discriminator
 from .losses import Keypoint3DLoss, Keypoint2DLoss, ParameterLoss
 from . import SMPL
 
+log = get_pylogger(__name__)
 
 class HMR2(pl.LightningModule):
 
@@ -29,7 +31,10 @@ class HMR2(pl.LightningModule):
         self.cfg = cfg
         # Create backbone feature extractor
         self.backbone = create_backbone(cfg)
-        
+        if cfg.MODEL.BACKBONE.get('PRETRAINED_WEIGHTS', None):
+            log.info(f'Loading backbone weights from {cfg.MODEL.BACKBONE.PRETRAINED_WEIGHTS}')
+            self.backbone.load_state_dict(torch.load(cfg.MODEL.BACKBONE.PRETRAINED_WEIGHTS, map_location='cpu')['state_dict'])
+
         # Create SMPL head
         self.smpl_head = build_smpl_head(cfg)
 
@@ -174,14 +179,6 @@ class HMR2(pl.LightningModule):
             has_gt = has_smpl_params[k]
             loss_smpl_params[k] = self.smpl_parameter_loss(pred.reshape(batch_size, -1), gt.reshape(batch_size, -1), has_gt)
 
-        # # Filter out images with corresponding SMPL parameter annotations
-        # smpl_params = {k: v.clone() for k,v in gt_smpl_params.items()}
-        # smpl_params['body_pose'] = aa_to_rotmat(smpl_params['body_pose'].reshape(-1, 3)).reshape(batch_size, -1, 3, 3)[:, :, :, :2].permute(0, 1, 3, 2).reshape(batch_size, -1)
-        # smpl_params['global_orient'] = aa_to_rotmat(smpl_params['global_orient'].reshape(-1, 3)).reshape(batch_size, -1, 3, 3)[:, :, :, :2].permute(0, 1, 3, 2).reshape(batch_size, -1)
-        # smpl_params['betas'] = smpl_params['betas']
-        # has_smpl_params = (batch['has_smpl_params']['body_pose'] > 0)
-        # smpl_params = {k: v[has_smpl_params] for k, v in smpl_params.items()}
-
         loss = self.cfg.LOSS_WEIGHTS['KEYPOINTS_3D'] * loss_keypoints_3d+\
                self.cfg.LOSS_WEIGHTS['KEYPOINTS_2D'] * loss_keypoints_2d+\
                sum([loss_smpl_params[k] * self.cfg.LOSS_WEIGHTS[k.upper()] for k in loss_smpl_params])
@@ -306,9 +303,6 @@ class HMR2(pl.LightningModule):
         if self.cfg.LOSS_WEIGHTS.ADVERSARIAL > 0:
             optimizer, optimizer_disc = optimizer
 
-        # Update learning rates
-        self.update_learning_rates(batch_idx)
-
         batch_size = batch['img'].shape[0]
         output = self.forward_step(batch, train=True)
         pred_smpl_params = output['pred_smpl_params']
@@ -354,8 +348,6 @@ class HMR2(pl.LightningModule):
         """
         # batch_size = batch['img'].shape[0]
         output = self.forward_step(batch, train=False)
-
-        pred_smpl_params = output['pred_smpl_params']
         loss = self.compute_loss(batch, output, train=False)
         output['loss'] = loss
         self.tensorboard_logging(batch, output, self.global_step, train=False)

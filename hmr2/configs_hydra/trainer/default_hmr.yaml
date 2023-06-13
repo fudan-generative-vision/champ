@@ -1,0 +1,8 @@
+num_sanity_val_steps: 0
+log_every_n_steps: ${GENERAL.LOG_STEPS}
+val_check_interval: ${GENERAL.VAL_STEPS}
+precision: 16
+max_steps: ${GENERAL.TOTAL_STEPS}
+# move_metrics_to_cpu: True
+limit_val_batches: 1
+# track_grad_norm: -1

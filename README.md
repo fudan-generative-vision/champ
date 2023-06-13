@@ -8,36 +8,27 @@ Code repository for the paper:
 
 ![teaser](assets/teaser.png)
 
-## Download dependencies
-Our demo code depends on [detectron2](https://github.com/facebookresearch/detectron2) to detect humans.
-To automatically download this dependency, clone this repo using `--recursive`, or run `git submodule update --init` if you've already cloned the repository. You should see the detectron2 source code at `vendor/detectron2`.
+## Installation and Setup
+First, clone the repo. Then, we recommend creating a clean [conda](https://docs.conda.io/) environment, installing all dependencies, and finally activating the environment, as follows:
 ```bash
-git clone https://github.com/shubham-goel/4D-Humans.git --recursive
-# OR
 git clone https://github.com/shubham-goel/4D-Humans.git
 cd 4D-Humans
-git submodule update --init
-```
-
-## Installation
-We recommend creating a clean [conda](https://docs.conda.io/) environment and installing all dependencies, as follows:
-```bash
 conda env create -f environment.yml
-```
-
-After the installation is complete you can activate the conda environment by running:
-```
 conda activate 4D-humans
 ```
 
-## Download checkpoints and SMPL models
-To download the checkpoints and SMPL models, run
+If conda is too slow, you can use pip:
 ```bash
-./fetch_data.sh
+conda create --name 4D-humans python=3.10
+conda activate 4D-humans
+pip install torch
+pip install -e .[all]
 ```
 
+All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
+
 ## Run demo on images
-You may now run our demo to 3D reconstruct humans in images using the following command, which will run ViTDet and HMR2.0 on all images in the specified `--img_folder` and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
+The following command will run ViTDet and HMR2.0 on all images in the specified `--img_folder`, and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
 ```bash
 python demo.py \
     --img_folder example_data/images \
@@ -45,10 +36,34 @@ python demo.py \
     --batch_size=48 --side_view
 ```
 
-## Run demo on videos
-Coming soon.
+## Run tracking demo on videos
+Our tracker builds on PHALP, please install that first:
+```bash
+pip install git+https://github.com/brjathu/PHALP.git
+```
 
-## Training and evaluation
+Now, run `track.py` to reconstruct and track humans in any video. Input video source may be a video file, a folder of frames, or a youtube link:
+```bash
+# Run on video file
+python track.py video.source="/path/to/video.mp4"
+
+# Run on extracted frames
+python track.py video.source="/path/to/frames_folder/"
+
+# Run on a youtube link (depends on pytube working properly)
+python track.py video.source=\'"https://www.youtube.com/watch?v=xEH_5T9jMVU"\'
+```
+The output directory (`./outputs` by default) will contain a video rendering of the tracklets and a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
+
+## Training
+Download the [training data](https://www.dropbox.com/sh/mjdwu59fxuhls5h/AACQ6FCGSrggUXmRzuubRHXIa) to `./hmr2_training_data/`, then start training using the following command:
+```
+bash fetch_training_data.sh
+python train/train.py exp_name=hmr2 data=mix_all experiment=hmr_vit_transformer trainer=gpu launcher=local
+```
+Checkpoints and logs will be saved to `./logs/`. We trained on 8 A100 GPUs for 7 days using PyTorch 1.13.1 and PyTorch-Lightning 1.8.1 with CUDA 11.6 on a Linux system. You may adjust batch size and number of GPUs per your convenience.
+
+## Evaluation
 Coming soon.
 
 ## Acknowledgements
@@ -65,11 +80,11 @@ Additionally, we thank [StabilityAI](https://stability.ai/) for a generous compu
 ## Citing
 If you find this code useful for your research, please consider citing the following paper:
 
-```
-@article{4DHUMANS,
+```bibtex
+@article{goel2023humans,
     title={Humans in 4{D}: Reconstructing and Tracking Humans with Transformers},
     author={Goel, Shubham and Pavlakos, Georgios and Rajasegaran, Jathushan and Kanazawa, Angjoo and Malik, Jitendra},
-    journal={arXiv preprint},
+    journal={arXiv preprint arXiv:2305.20091},
     year={2023}
 }
 ```

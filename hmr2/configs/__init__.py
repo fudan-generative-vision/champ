@@ -2,6 +2,8 @@ import os
 from typing import Dict
 from yacs.config import CfgNode as CN
 
+CACHE_DIR = os.path.join(os.environ.get("HOME"), ".cache")
+CACHE_DIR_4DHUMANS = os.path.join(CACHE_DIR, "4DHumans")
 
 def to_lower(x: Dict) -> Dict:
     """
@@ -70,7 +72,19 @@ def default_config() -> CN:
     # This is for the "local variable" use pattern
     return _C.clone()
 
-def get_config(config_file: str, merge: bool = True) -> CN:
+def dataset_config() -> CN:
+    """
+    Get dataset config file
+    Returns:
+      CfgNode: Dataset config as a yacs CfgNode object.
+    """
+    cfg = CN(new_allowed=True)
+    config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'datasets_tar.yaml')
+    cfg.merge_from_file(config_file)
+    cfg.freeze()
+    return cfg
+
+def get_config(config_file: str, merge: bool = True, update_cachedir: bool = False) -> CN:
     """
     Read a config file and optionally merge it with the default config file.
     Args:
@@ -84,5 +98,16 @@ def get_config(config_file: str, merge: bool = True) -> CN:
     else:
       cfg = CN(new_allowed=True)
     cfg.merge_from_file(config_file)
+
+    if update_cachedir:
+      def update_path(path: str) -> str:
+        if os.path.isabs(path):
+          return path
+        return os.path.join(CACHE_DIR_4DHUMANS, path)
+
+      cfg.SMPL.MODEL_PATH = update_path(cfg.SMPL.MODEL_PATH)
+      cfg.SMPL.JOINT_REGRESSOR_EXTRA = update_path(cfg.SMPL.JOINT_REGRESSOR_EXTRA)
+      cfg.SMPL.MEAN_PARAMS = update_path(cfg.SMPL.MEAN_PARAMS)
+
     cfg.freeze()
     return cfg

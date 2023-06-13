@@ -5,15 +5,14 @@ import os
 import cv2
 import numpy as np
 
-from hmr2.configs import get_config
-from hmr2.models import HMR2
+from hmr2.configs import CACHE_DIR_4DHUMANS
+from hmr2.models import HMR2, download_models, load_hmr2, DEFAULT_CHECKPOINT
 from hmr2.utils import recursive_to
 from hmr2.datasets.vitdet_dataset import ViTDetDataset, DEFAULT_MEAN, DEFAULT_STD
 from hmr2.utils.renderer import Renderer
 
 LIGHT_BLUE=(0.65098039,  0.74117647,  0.85882353)
 
-DEFAULT_CHECKPOINT='logs/train/multiruns/hmr2/0/checkpoints/epoch=35-step=1000000.ckpt'
 parser = argparse.ArgumentParser(description='HMR2 demo code')
 parser.add_argument('--checkpoint', type=str, default=DEFAULT_CHECKPOINT, help='Path to pretrained model checkpoint')
 parser.add_argument('--img_folder', type=str, default='example_data/images', help='Folder with input images')
@@ -23,17 +22,21 @@ parser.add_argument('--batch_size', type=int, default=1, help='Batch size for in
 
 args = parser.parse_args()
 
+# Download and load checkpoints
+download_models(CACHE_DIR_4DHUMANS)
+model, model_cfg = load_hmr2(args.checkpoint)
+
 # Setup HMR2.0 model
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-model_cfg = str(Path(args.checkpoint).parent.parent / 'model_config.yaml')
-model_cfg = get_config(model_cfg)
-model = HMR2.load_from_checkpoint(args.checkpoint, strict=False, cfg=model_cfg).to(device)
+model = model.to(device)
 model.eval()
 
 # Load detector
-from detectron2.config import LazyConfig
 from hmr2.utils.utils_detectron2 import DefaultPredictor_Lazy
-detectron2_cfg = LazyConfig.load(f"vendor/detectron2/projects/ViTDet/configs/COCO/cascade_mask_rcnn_vitdet_h_75ep.py")
+from detectron2.config import LazyConfig
+import hmr2
+cfg_path = Path(hmr2.__file__).parent/'configs'/'cascade_mask_rcnn_vitdet_h_75ep.py'
+detectron2_cfg = LazyConfig.load(str(cfg_path))
 detectron2_cfg.train.init_checkpoint = "https://dl.fbaipublicfiles.com/detectron2/ViTDet/COCO/cascade_mask_rcnn_vitdet_h/f328730692/model_final_f05665.pkl"
 for i in range(3):
     detectron2_cfg.model.roi_heads.box_predictors[i].test_score_thresh = 0.25
