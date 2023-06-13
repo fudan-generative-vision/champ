@@ -16,6 +16,10 @@ setup(
         'scikit-image',
         'einops',
         'timm',
-        'detectron2 @ git+https://github.com/facebookresearch/detectron2',
-    ]
+    ],
+    extras_require={
+        'all': [
+            'detectron2 @ git+https://github.com/facebookresearch/detectron2',
+        ],
+    },
 )

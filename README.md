@@ -22,7 +22,7 @@ If conda is too slow, you can use pip:
 conda create --name 4D-humans python=3.10
 conda activate 4D-humans
 pip install torch
-pip install -e .
+pip install -e .[all]
 ```
 
 All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
@@ -45,15 +45,15 @@ pip install git+https://github.com/brjathu/PHALP.git
 Now, run `track.py` to reconstruct and track humans in any video. Input video source may be a video file, a folder of frames, or a youtube link:
 ```bash
 # Run on video file
-python track.py video.source="/path/to/video.mp4" video.output_dir=demo_out/video/
+python track.py video.source="/path/to/video.mp4"
 
 # Run on extracted frames
-python track.py video.source="/path/to/frames_folder/" video.output_dir=demo_out/video/
+python track.py video.source="/path/to/frames_folder/"
 
 # Run on a youtube link (depends on pytube working properly)
-python track.py video.source=\'"https://www.youtube.com/watch?v=xEH_5T9jMVU"\' video.output_dir=demo_out/video/
+python track.py video.source=\'"https://www.youtube.com/watch?v=xEH_5T9jMVU"\'
 ```
-The output directory will contain a video rendering of the tracklets, as well as a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
+The output directory (`./outputs` by default) will contain a video rendering of the tracklets and a `.pkl` file containing the tracklets with 3D pose and shape. Please see the [PHALP](https://github.com/brjathu/PHALP) repository for details.
 
 ## Training
 Download the [training data](https://www.dropbox.com/sh/mjdwu59fxuhls5h/AACQ6FCGSrggUXmRzuubRHXIa) to `./hmr2_training_data/`, then start training using the following command:
