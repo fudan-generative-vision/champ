@@ -9,6 +9,18 @@ import cv2
 from yacs.config import CfgNode
 from typing import List, Optional
 
+def cam_crop_to_full(cam_bbox, box_center, box_size, img_size, focal_length=5000.):
+    # Convert cam_bbox to full image
+    img_w, img_h = img_size[:, 0], img_size[:, 1]
+    cx, cy, b = box_center[:, 0], box_center[:, 1], box_size
+    w_2, h_2 = img_w / 2., img_h / 2.
+    bs = b * cam_bbox[:, 0] + 1e-9
+    tz = 2 * focal_length / bs
+    tx = (2 * (cx - w_2) / bs) + cam_bbox[:, 1]
+    ty = (2 * (cy - h_2) / bs) + cam_bbox[:, 2]
+    full_cam = torch.stack([tx, ty, tz], dim=-1)
+    return full_cam
+
 def get_light_poses(n_lights=5, elevation=np.pi / 3, dist=12):
     # get lights in a circle around origin at elevation
     thetas = elevation * np.ones(n_lights)
@@ -133,9 +145,6 @@ class Renderer:
         self.cfg = cfg
         self.focal_length = cfg.EXTRA.FOCAL_LENGTH
         self.img_res = cfg.MODEL.IMAGE_SIZE
-        self.renderer = pyrender.OffscreenRenderer(viewport_width=self.img_res,
-                                       viewport_height=self.img_res,
-                                       point_size=1.0)
 
         self.camera_center = [self.img_res // 2, self.img_res // 2]
         self.faces = faces
@@ -196,7 +205,7 @@ class Renderer:
         camera_pose[:3, 3] = camera_translation
         camera_center = [image.shape[1] / 2., image.shape[0] / 2.]
         camera = pyrender.IntrinsicsCamera(fx=self.focal_length, fy=self.focal_length,
-                                           cx=camera_center[0], cy=camera_center[1])
+                                           cx=camera_center[0], cy=camera_center[1], zfar=1e12)
         scene.add(camera, pose=camera_pose)
 
 
@@ -219,6 +228,26 @@ class Renderer:
 
         output_img = output_img.astype(np.float32)
         return output_img
+
+    def vertices_to_trimesh(self, vertices, camera_translation, mesh_base_color=(1.0, 1.0, 0.9), 
+                            rot_axis=[1,0,0], rot_angle=0,):
+        # material = pyrender.MetallicRoughnessMaterial(
+        #     metallicFactor=0.0,
+        #     alphaMode='OPAQUE',
+        #     baseColorFactor=(*mesh_base_color, 1.0))
+        vertex_colors = np.array([(*mesh_base_color, 1.0)] * vertices.shape[0])
+        print(vertices.shape, camera_translation.shape)
+        mesh = trimesh.Trimesh(vertices.copy() + camera_translation, self.faces.copy(), vertex_colors=vertex_colors)
+        # mesh = trimesh.Trimesh(vertices.copy(), self.faces.copy())
+        
+        rot = trimesh.transformations.rotation_matrix(
+                np.radians(rot_angle), rot_axis)
+        mesh.apply_transform(rot)
+
+        rot = trimesh.transformations.rotation_matrix(
+            np.radians(180), [1, 0, 0])
+        mesh.apply_transform(rot)
+        return mesh
 
     def render_rgba(
             self,
@@ -244,26 +273,11 @@ class Renderer:
 
         if cam_t is not None:
             camera_translation = cam_t.copy()
-            camera_translation[0] *= -1.
+            # camera_translation[0] *= -1.
         else:
             camera_translation = np.array([0, 0, camera_z * self.focal_length/render_res[1]])
 
-        # material = pyrender.MetallicRoughnessMaterial(
-        #     metallicFactor=0.0,
-        #     alphaMode='OPAQUE',
-        #     baseColorFactor=(*mesh_base_color, 1.0))
-        vertex_colors = np.array([(*mesh_base_color, 1.0)] * vertices.shape[0])
-        mesh = trimesh.Trimesh(vertices.copy(), self.faces.copy(), vertex_colors=vertex_colors)
-        # mesh = trimesh.Trimesh(vertices.copy(), self.faces.copy())
-        
-        if rot is None:
-            rot = trimesh.transformations.rotation_matrix(
-                np.radians(rot_angle), rot_axis)
-        mesh.apply_transform(rot)
-
-        rot = trimesh.transformations.rotation_matrix(
-            np.radians(180), [1, 0, 0])
-        mesh.apply_transform(rot)
+        mesh = self.vertices_to_trimesh(vertices, camera_translation, mesh_base_color, rot_axis, rot_angle)
         mesh = pyrender.Mesh.from_trimesh(mesh)
         # mesh = pyrender.Mesh.from_trimesh(mesh, material=material)
 
@@ -272,10 +286,60 @@ class Renderer:
         scene.add(mesh, 'mesh')
 
         camera_pose = np.eye(4)
-        camera_pose[:3, 3] = camera_translation
+        # camera_pose[:3, 3] = camera_translation
         camera_center = [render_res[0] / 2., render_res[1] / 2.]
         camera = pyrender.IntrinsicsCamera(fx=self.focal_length, fy=self.focal_length,
-                                           cx=camera_center[0], cy=camera_center[1])
+                                           cx=camera_center[0], cy=camera_center[1], zfar=1e12)
+
+        # Create camera node and add it to pyRender scene
+        camera_node = pyrender.Node(camera=camera, matrix=camera_pose)
+        scene.add_node(camera_node)
+        self.add_point_lighting(scene, camera_node)
+        self.add_lighting(scene, camera_node)
+
+        light_nodes = create_raymond_lights()
+        for node in light_nodes:
+            scene.add_node(node)
+
+        color, rend_depth = renderer.render(scene, flags=pyrender.RenderFlags.RGBA)
+        color = color.astype(np.float32) / 255.0
+        renderer.delete()
+
+        return color
+
+    def render_rgba_multiple(
+            self,
+            vertices: List[np.array],
+            cam_t: List[np.array],
+            rot_axis=[1,0,0],
+            rot_angle=0,
+            mesh_base_color=(1.0, 1.0, 0.9),
+            scene_bg_color=(0,0,0),
+            render_res=[256, 256],
+            focal_length=None,
+        ):
+
+        renderer = pyrender.OffscreenRenderer(viewport_width=render_res[0],
+                                              viewport_height=render_res[1],
+                                              point_size=1.0)
+        # material = pyrender.MetallicRoughnessMaterial(
+        #     metallicFactor=0.0,
+        #     alphaMode='OPAQUE',
+        #     baseColorFactor=(*mesh_base_color, 1.0))
+
+        mesh_list = [pyrender.Mesh.from_trimesh(self.vertices_to_trimesh(vvv, ttt.copy(), mesh_base_color, rot_axis, rot_angle)) for vvv,ttt in zip(vertices, cam_t)]
+
+        scene = pyrender.Scene(bg_color=[*scene_bg_color, 0.0],
+                               ambient_light=(0.3, 0.3, 0.3))
+        for i,mesh in enumerate(mesh_list):
+            scene.add(mesh, f'mesh_{i}')
+
+        camera_pose = np.eye(4)
+        # camera_pose[:3, 3] = camera_translation
+        camera_center = [render_res[0] / 2., render_res[1] / 2.]
+        focal_length = focal_length if focal_length is not None else self.focal_length
+        camera = pyrender.IntrinsicsCamera(fx=focal_length, fy=focal_length,
+                                           cx=camera_center[0], cy=camera_center[1], zfar=1e12)
 
         # Create camera node and add it to pyRender scene
         camera_node = pyrender.Node(camera=camera, matrix=camera_pose)

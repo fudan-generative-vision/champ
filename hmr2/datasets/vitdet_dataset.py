@@ -40,7 +40,7 @@ class ViTDetDataset(torch.utils.data.Dataset):
 
     def __len__(self) -> int:
         return len(self.personid)
-    
+
     def __getitem__(self, idx: int) -> Dict[str, np.array]:
 
         center = self.center[idx].copy()
@@ -69,7 +69,7 @@ class ViTDetDataset(torch.utils.data.Dataset):
                                                     center_x, center_y,
                                                     bbox_size, bbox_size,
                                                     patch_width, patch_height,
-                                                    False, 1.0, 0, 
+                                                    False, 1.0, 0,
                                                     border_mode=cv2.BORDER_CONSTANT)
         img_patch_cv = img_patch_cv[:, :, ::-1]
         img_patch = convert_cvimg_to_tensor(img_patch_cv)
@@ -78,7 +78,11 @@ class ViTDetDataset(torch.utils.data.Dataset):
         for n_c in range(min(self.img_cv2.shape[2], 3)):
             img_patch[n_c, :, :] = (img_patch[n_c, :, :] - self.mean[n_c]) / self.std[n_c]
 
-        return {
+        item = {
             'img': img_patch,
             'personid': int(self.personid[idx]),
-        }        
+        }
+        item['box_center'] = self.center[idx].copy()
+        item['box_size'] = bbox_size
+        item['img_size'] = 1.0 * np.array([cvimg.shape[1], cvimg.shape[0]])
+        return item

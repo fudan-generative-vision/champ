@@ -28,12 +28,12 @@ pip install -e .[all]
 All checkpoints and data will automatically be downloaded to `$HOME/.cache/4DHumans` the first time you run the demo code.
 
 ## Run demo on images
-The following command will run ViTDet and HMR2.0 on all images in the specified `--img_folder`, and save renderings of the reconstructions in `--out_folder`. You can also use the `--side_view` flag to additionally render the side view of the reconstructed mesh. `--batch_size` batches the images together for faster processing.
+The following command will run ViTDet and HMR2.0 on all images in the specified `--img_folder`, and save renderings of the reconstructions in `--out_folder`. `--batch_size` batches the images together for faster processing. The `--side_view` flags additionally renders the side view of the reconstructed mesh, `--full_frame` renders all people together in front view, `--save_mesh` saves meshes as `.obj`s.
 ```bash
 python demo.py \
     --img_folder example_data/images \
     --out_folder demo_out \
-    --batch_size=48 --side_view
+    --batch_size=48 --side_view --save_mesh --full_frame
 ```
 
 ## Run tracking demo on videos
@@ -45,7 +45,7 @@ pip install git+https://github.com/brjathu/PHALP.git
 Now, run `track.py` to reconstruct and track humans in any video. Input video source may be a video file, a folder of frames, or a youtube link:
 ```bash
 # Run on video file
-python track.py video.source="/path/to/video.mp4"
+python track.py video.source="example_data/videos/gymnasts.mp4"
 
 # Run on extracted frames
 python track.py video.source="/path/to/frames_folder/"

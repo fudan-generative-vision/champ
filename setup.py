@@ -16,6 +16,7 @@ setup(
         'scikit-image',
         'einops',
         'timm',
+        'webdataset',
     ],
     extras_require={
         'all': [
