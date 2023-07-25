@@ -24,11 +24,11 @@ AIC-TRAIN-WMASK:
     epoch_size: 200_000
 INSTA-TRAIN-WMASK:
     TYPE: ImageDataset
-    URLS: hmr2_training_data/dataset_tars/insta-train-vitpose/{000000..001828}.tar
+    URLS: hmr2_training_data/dataset_tars/insta-train-vitpose-replicate/{000000..003657}.tar
     epoch_size: 4_000_000
 COCO-TRAIN-2014-VITPOSE-REPLICATE-PRUNED12:
     TYPE: ImageDataset
-    URLS: hmr2_training_data/dataset_tars/coco-train-2014-vitpose-replicate-pruned12/{000000..000044}.tar
+    URLS: hmr2_training_data/dataset_tars/coco-train-2014-vitpose-pruned/{000000..000044}.tar
     epoch_size: 45_000
 COCO-VAL:
     TYPE: ImageDataset
