@@ -27,8 +27,10 @@ def download_url(url, dst_file_path, chunk_size=8192, progress_hook=_progress_ba
     # url = url + "?dl=1" if "dropbox" in url else url
     req = urlrequest.Request(url)
     response = urlrequest.urlopen(req)
-    total_size = response.info().get("Content-Length").strip()
-    total_size = int(total_size)
+    total_size = response.info().get("Content-Length")
+    if total_size is None:
+        raise ValueError("Cannot determine size of download from {}".format(url))
+    total_size = int(total_size.strip())
     bytes_so_far = 0
 
     with open(dst_file_path, "wb") as f:
