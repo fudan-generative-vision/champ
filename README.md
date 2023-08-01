@@ -66,6 +66,9 @@ Checkpoints and logs will be saved to `./logs/`. We trained on 8 A100 GPUs for 7
 ## Evaluation
 Coming soon.
 
+## Open Source Contributions
+[carlosedubarreto](https://github.com/carlosedubarreto/) has created a tutorial to import 4D Humans in Blender: https://www.patreon.com/posts/86992009
+
 ## Acknowledgements
 Parts of the code are taken or adapted from the following repos:
 - [ProHMR](https://github.com/nkolot/ProHMR)
@@ -81,10 +84,10 @@ Additionally, we thank [StabilityAI](https://stability.ai/) for a generous compu
 If you find this code useful for your research, please consider citing the following paper:
 
 ```bibtex
-@article{goel2023humans,
+@inproceedings{goel2023humans,
     title={Humans in 4{D}: Reconstructing and Tracking Humans with Transformers},
     author={Goel, Shubham and Pavlakos, Georgios and Rajasegaran, Jathushan and Kanazawa, Angjoo and Malik, Jitendra},
-    journal={arXiv preprint arXiv:2305.20091},
+    booktitle={ICCV},
     year={2023}
 }
 ```
