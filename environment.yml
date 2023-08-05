@@ -5,6 +5,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
+  - numpy<=1.23.1
   - pytorch
   - pytorch-cuda=11.8
   - torchvision
@@ -18,6 +19,8 @@ dependencies:
     - scikit-image
     - einops
     - timm
+    - dill
+    - chumpy
     - git+https://github.com/facebookresearch/detectron2
 
     # For training
