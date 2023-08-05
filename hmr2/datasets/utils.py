@@ -32,6 +32,32 @@ def expand_to_aspect_ratio(input_shape, target_aspect_ratio=None):
         breakpoint()
     return np.array([w_new, h_new])
 
+def expand_bbox_to_aspect_ratio(bbox, target_aspect_ratio=None):
+    # bbox: np.array: (N,4) detectron2 bbox format 
+    # target_aspect_ratio: (width, height)
+    if target_aspect_ratio is None:
+        return bbox
+    
+    is_singleton = (bbox.ndim == 1)
+    if is_singleton:
+        bbox = bbox[None,:]
+
+    if bbox.shape[0] > 0:
+        center = np.stack(((bbox[:,0] + bbox[:,2]) / 2, (bbox[:,1] + bbox[:,3]) / 2), axis=1)
+        scale_wh = np.stack((bbox[:,2] - bbox[:,0], bbox[:,3] - bbox[:,1]), axis=1)
+        scale_wh = np.stack([expand_to_aspect_ratio(wh, target_aspect_ratio) for wh in scale_wh], axis=0)
+        bbox = np.stack([
+            center[:,0] - scale_wh[:,0] / 2,
+            center[:,1] - scale_wh[:,1] / 2,
+            center[:,0] + scale_wh[:,0] / 2,
+            center[:,1] + scale_wh[:,1] / 2,
+        ], axis=1)
+
+    if is_singleton:
+        bbox = bbox[0,:]
+
+    return bbox
+
 def do_augmentation(aug_config: CfgNode) -> Tuple:
     """
     Compute random augmentation parameters.
