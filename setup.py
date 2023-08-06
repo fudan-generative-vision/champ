@@ -6,7 +6,7 @@ setup(
     name='hmr2',
     packages=find_packages(),
     install_requires=[
-        'numpy==1.23.1',
+        'numpy==1.23.0',
         'torch',
         'torchvision',
         'pytorch-lightning',
