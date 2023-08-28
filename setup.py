@@ -20,6 +20,7 @@ setup(
         'webdataset',
         'dill',
         'chumpy',
+        'pandas',
     ],
     extras_require={
         'all': [

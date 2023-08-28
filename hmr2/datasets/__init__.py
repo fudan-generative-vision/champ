@@ -11,6 +11,18 @@ from .dataset import Dataset
 from .image_dataset import ImageDataset
 from .mocap_dataset import MoCapDataset
 
+def create_dataset(cfg: CfgNode, dataset_cfg: CfgNode, train: bool = True, **kwargs) -> Dataset:
+    """
+    Instantiate a dataset from a config file.
+    Args:
+        cfg (CfgNode): Model configuration file.
+        dataset_cfg (CfgNode): Dataset configuration info.
+        train (bool): Variable to select between train and val datasets.
+    """
+
+    dataset_type = Dataset.registry[dataset_cfg.TYPE]
+    return dataset_type(cfg, **to_lower(dataset_cfg), train=train, **kwargs)
+
 def create_webdataset(cfg: CfgNode, dataset_cfg: CfgNode, train: bool = True) -> Dataset:
     """
     Like `create_dataset` but load data from tars.

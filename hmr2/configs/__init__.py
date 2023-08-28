@@ -72,17 +72,20 @@ def default_config() -> CN:
     # This is for the "local variable" use pattern
     return _C.clone()
 
-def dataset_config() -> CN:
+def dataset_config(name='datasets_tar.yaml') -> CN:
     """
     Get dataset config file
     Returns:
       CfgNode: Dataset config as a yacs CfgNode object.
     """
     cfg = CN(new_allowed=True)
-    config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'datasets_tar.yaml')
+    config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), name)
     cfg.merge_from_file(config_file)
     cfg.freeze()
     return cfg
+
+def dataset_eval_config() -> CN:
+    return dataset_config('datasets_eval.yaml')
 
 def get_config(config_file: str, merge: bool = True, update_cachedir: bool = False) -> CN:
     """
