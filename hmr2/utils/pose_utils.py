@@ -271,7 +271,7 @@ class EvaluatorPCK:
         assert pred_kp_2d[..., 0].shape == gt_conf_2d.shape
         assert pred_kp_2d.shape[1] == 1 # num_samples
 
-        from mmpose.core.evaluation import keypoint_pck_accuracy
+        from .pck_accuracy import keypoint_pck_accuracy
         pcks = [
             keypoint_pck_accuracy(
                 pred_kp_2d[:, 0, :, :],
@@ -299,8 +299,12 @@ class EvaluatorPCK:
         pred_keypoints_2d = pred_keypoints_2d[:,None,:,:]
         gt_keypoints_2d = batch['keypoints_2d'][:,None,:,:].repeat(1, num_samples, 1, 1)
 
-        self.pred_kp_2d.append(pred_keypoints_2d[:, :, :, :2].detach().cpu().numpy())
+        gt_bbox_expand_factor = (batch['box_size']/(batch['_scale']*200).max(dim=-1).values)
+        gt_bbox_expand_factor = gt_bbox_expand_factor[:,None,None,None].repeat(1, num_samples, 1, 1)
+        gt_bbox_expand_factor = gt_bbox_expand_factor.detach().cpu().numpy()
+
+        self.pred_kp_2d.append(pred_keypoints_2d[:, :, :, :2].detach().cpu().numpy() * gt_bbox_expand_factor)
         self.gt_conf_2d.append(gt_keypoints_2d[:, :, :, -1].detach().cpu().numpy())
-        self.gt_kp_2d.append(gt_keypoints_2d[:, :, :, :2].detach().cpu().numpy())
+        self.gt_kp_2d.append(gt_keypoints_2d[:, :, :, :2].detach().cpu().numpy() * gt_bbox_expand_factor)
 
         self.counter += batch_size
