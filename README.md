@@ -73,6 +73,8 @@ Run evaluation on multiple datasets as follows, results are stored in `results/e
 python eval.py --dataset 'H36M-VAL-P2,3DPW-TEST,LSP-EXTENDED,POSETRACK-VAL,COCO-VAL' 
 ```
 
+By default, our code uses the released checkpoint (mentioned as HMR2.0b in the paper). To use the HMR2.0a checkpoint, you may download and untar from [here](https://people.eecs.berkeley.edu/~jathushan/projects/4dhumans/hmr2a_model.tar.gz)
+
 ## Preprocess code
 To preprocess LSP Extended and Posetrack into metadata zip files for evaluation, see `hmr2/datasets/preprocess`.
 
