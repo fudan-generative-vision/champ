@@ -52,7 +52,7 @@ def main():
     os.makedirs(args.out_folder, exist_ok=True)
 
     # Iterate over all images in folder
-    for img_path in Path(args.img_folder).glob('*.jpg'):
+    for img_path in Path(args.img_folder).glob('*.{png,jpg}'):
         img_cv2 = cv2.imread(str(img_path))
 
         # Detect humans in image
