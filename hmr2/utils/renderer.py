@@ -155,7 +155,8 @@ class Renderer:
                 image: torch.Tensor,
                 full_frame: bool = False,
                 imgname: Optional[str] = None,
-                side_view=False, rot_angle=90,
+                side_view=False, top_view=False,
+                rot_angle=90,
                 mesh_base_color=(1.0, 1.0, 0.9),
                 scene_bg_color=(0,0,0),
                 return_rgba=False,
@@ -192,6 +193,10 @@ class Renderer:
             rot = trimesh.transformations.rotation_matrix(
                 np.radians(rot_angle), [0, 1, 0])
             mesh.apply_transform(rot)
+        elif top_view:
+            rot = trimesh.transformations.rotation_matrix(
+                np.radians(rot_angle), [1, 0, 0])
+            mesh.apply_transform(rot)
         rot = trimesh.transformations.rotation_matrix(
             np.radians(180), [1, 0, 0])
         mesh.apply_transform(rot)
@@ -221,7 +226,7 @@ class Renderer:
             return color
 
         valid_mask = (color[:, :, -1])[:, :, np.newaxis]
-        if not side_view:
+        if not side_view and not top_view:
             output_img = (color[:, :, :3] * valid_mask + (1 - valid_mask) * image)
         else:
             output_img = color[:, :, :3]

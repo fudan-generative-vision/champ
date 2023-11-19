@@ -19,10 +19,10 @@ def main():
     parser.add_argument('--img_folder', type=str, default='example_data/images', help='Folder with input images')
     parser.add_argument('--out_folder', type=str, default='demo_out', help='Output folder to save rendered results')
     parser.add_argument('--side_view', dest='side_view', action='store_true', default=False, help='If set, render side view also')
+    parser.add_argument('--top_view', dest='top_view', action='store_true', default=False, help='If set, render top view also')
     parser.add_argument('--full_frame', dest='full_frame', action='store_true', default=False, help='If set, render all people together also')
     parser.add_argument('--save_mesh', dest='save_mesh', action='store_true', default=False, help='If set, save meshes to disk also')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size for inference/fitting')
-    parser.add_argument('--file_type', nargs='+', default=['*.jpg', '*.png'], help='List of file extensions to consider')
 
     args = parser.parse_args()
 
@@ -52,11 +52,8 @@ def main():
     # Make output directory if it does not exist
     os.makedirs(args.out_folder, exist_ok=True)
 
-    # Get all demo images ends with .jpg or .png
-    img_paths = [img for end in args.file_type for img in Path(args.img_folder).glob(end)]
-    
     # Iterate over all images in folder
-    for img_path in img_paths:
+    for img_path in Path(args.img_folder).glob('*.jpg'):
         img_cv2 = cv2.imread(str(img_path))
 
         # Detect humans in image
@@ -102,6 +99,8 @@ def main():
                                         scene_bg_color=(1, 1, 1),
                                         )
 
+                final_img = np.concatenate([input_patch, regression_img], axis=1)
+
                 if args.side_view:
                     side_img = renderer(out['pred_vertices'][n].detach().cpu().numpy(),
                                             out['pred_cam_t'][n].detach().cpu().numpy(),
@@ -109,9 +108,16 @@ def main():
                                             mesh_base_color=LIGHT_BLUE,
                                             scene_bg_color=(1, 1, 1),
                                             side_view=True)
-                    final_img = np.concatenate([input_patch, regression_img, side_img], axis=1)
-                else:
-                    final_img = np.concatenate([input_patch, regression_img], axis=1)
+                    final_img = np.concatenate([final_img, side_img], axis=1)
+
+                if args.top_view:
+                    top_img = renderer(out['pred_vertices'][n].detach().cpu().numpy(),
+                                            out['pred_cam_t'][n].detach().cpu().numpy(),
+                                            white_img,
+                                            mesh_base_color=LIGHT_BLUE,
+                                            scene_bg_color=(1, 1, 1),
+                                            top_view=True)
+                    final_img = np.concatenate([final_img, top_img], axis=1)
 
                 cv2.imwrite(os.path.join(args.out_folder, f'{img_fn}_{person_id}.png'), 255*final_img[:, :, ::-1])
 
