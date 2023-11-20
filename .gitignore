@@ -13,6 +13,7 @@
 token_channel.csv
 /hmr2_training_data/
 /hmr2_evaluation_data/
+/outputs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
