@@ -6,7 +6,7 @@ setup(
     name='hmr2',
     packages=find_packages(),
     install_requires=[
-        'numpy==1.23.0',
+        'numpy',
         'torch',
         'torchvision',
         'pytorch-lightning',
@@ -19,8 +19,8 @@ setup(
         'timm',
         'webdataset',
         'dill',
-        'chumpy',
         'pandas',
+        'chumpy @ git+https://github.com/mattloper/chumpy',
     ],
     extras_require={
         'all': [

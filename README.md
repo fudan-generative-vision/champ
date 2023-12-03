@@ -21,7 +21,7 @@ If conda is too slow, you can use pip:
 ```bash
 conda create --name 4D-humans python=3.10
 conda activate 4D-humans
-pip install numpy==1.23.1 torch
+pip install torch
 pip install -e .[all]
 ```
 
