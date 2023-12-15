@@ -6,6 +6,7 @@ setup(
     name='hmr2',
     packages=find_packages(),
     install_requires=[
+        'gdown',
         'numpy',
         'torch',
         'torchvision',
