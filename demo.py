@@ -14,6 +14,8 @@ from hmr2.utils.renderer import Renderer, cam_crop_to_full
 LIGHT_BLUE=(0.65098039,  0.74117647,  0.85882353)
 
 def main():
+    import time
+    start = time.time()
     parser = argparse.ArgumentParser(description='HMR2 demo code')
     parser.add_argument('--checkpoint', type=str, default=DEFAULT_CHECKPOINT, help='Path to pretrained model checkpoint')
     parser.add_argument('--img_folder', type=str, default='example_data/images', help='Folder with input images')
@@ -22,6 +24,7 @@ def main():
     parser.add_argument('--top_view', dest='top_view', action='store_true', default=False, help='If set, render top view also')
     parser.add_argument('--full_frame', dest='full_frame', action='store_true', default=False, help='If set, render all people together also')
     parser.add_argument('--save_mesh', dest='save_mesh', action='store_true', default=False, help='If set, save meshes to disk also')
+    parser.add_argument('--detector', type=str, default='vitdet', choices=['vitdet', 'regnety'], help='Using regnety improves runtime')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size for inference/fitting')
 
     args = parser.parse_args()
@@ -37,14 +40,22 @@ def main():
 
     # Load detector
     from hmr2.utils.utils_detectron2 import DefaultPredictor_Lazy
-    from detectron2.config import LazyConfig
-    import hmr2
-    cfg_path = Path(hmr2.__file__).parent/'configs'/'cascade_mask_rcnn_vitdet_h_75ep.py'
-    detectron2_cfg = LazyConfig.load(str(cfg_path))
-    detectron2_cfg.train.init_checkpoint = "https://dl.fbaipublicfiles.com/detectron2/ViTDet/COCO/cascade_mask_rcnn_vitdet_h/f328730692/model_final_f05665.pkl"
-    for i in range(3):
-        detectron2_cfg.model.roi_heads.box_predictors[i].test_score_thresh = 0.25
-    detector = DefaultPredictor_Lazy(detectron2_cfg)
+    if args.detector == 'vitdet':
+        from detectron2.config import LazyConfig
+        import hmr2
+        cfg_path = Path(hmr2.__file__).parent/'configs'/'cascade_mask_rcnn_vitdet_h_75ep.py'
+        detectron2_cfg = LazyConfig.load(str(cfg_path))
+        detectron2_cfg.train.init_checkpoint = "https://dl.fbaipublicfiles.com/detectron2/ViTDet/COCO/cascade_mask_rcnn_vitdet_h/f328730692/model_final_f05665.pkl"
+        for i in range(3):
+            detectron2_cfg.model.roi_heads.box_predictors[i].test_score_thresh = 0.25
+        detector = DefaultPredictor_Lazy(detectron2_cfg)
+    elif args.detector == 'regnety':
+        from detectron2 import model_zoo
+        from detectron2.config import get_cfg
+        detectron2_cfg = model_zoo.get_config('new_baselines/mask_rcnn_regnety_4gf_dds_FPN_400ep_LSJ.py', trained=True)
+        detectron2_cfg.model.roi_heads.box_predictor.test_score_thresh = 0.5
+        detectron2_cfg.model.roi_heads.box_predictor.test_nms_thresh   = 0.4
+        detector       = DefaultPredictor_Lazy(detectron2_cfg)
 
     # Setup the renderer
     renderer = Renderer(model_cfg, faces=model.smpl.faces)
@@ -53,7 +64,7 @@ def main():
     os.makedirs(args.out_folder, exist_ok=True)
 
     # Iterate over all images in folder
-    for img_path in Path(args.img_folder).glob('*.jpg'):
+    for img_path in Path(args.img_folder).glob('*.png'):
         img_cv2 = cv2.imread(str(img_path))
 
         # Detect humans in image
@@ -148,6 +159,9 @@ def main():
             input_img_overlay = input_img[:,:,:3] * (1-cam_view[:,:,3:]) + cam_view[:,:,:3] * cam_view[:,:,3:]
 
             cv2.imwrite(os.path.join(args.out_folder, f'{img_fn}_all.png'), 255*input_img_overlay[:, :, ::-1])
+
+        end = time.time()
+        print(end - start)
 
 if __name__ == '__main__':
     main()
