@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://fudan-generative-vision.github.io/champ",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -30,6 +31,7 @@
     "autoprefixer": "^10.4.18",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
+    "gh-pages": "^6.1.1",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8.4.35",
     "prettier": "^3.0.3",
