@@ -21,7 +21,9 @@ jobs:
           npm install pnpm -g
           pnpm i
           pnpm run build --base=/${REPO}
-          git remote set-url origin https://${USERNAME}:${GITHUB_TOKEN}@github.com/fudan-generative-vision/${REPO}.git
+          git config --global user.name "leeway.zlw"
+          git config --global user.email "leeway213@outlook.com"
+          git remote set-url origin https://${GITHUB_TOKEN}@github.com/fudan-generative-vision/${REPO}.git
           npx gh-pages -d dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
