@@ -24,7 +24,7 @@ jobs:
           git config --global user.email "support+actions@github.com"
           git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}@github.com/fudan-generative-vision/champ.git
           cd ./dist/
-          npx gh-pages -d . -u "github-actions-bot <support+actions@github.com>" --repo https://github.com/fudan-generative-vision/champ.git
+          npx gh-pages -d . -u "github-actions-bot <support+actions@github.com>" --repo https://git:${{ secrets.GITHUB_TOKEN }}@github.com/fudan-generative-vision/champ.git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BASE: /champ
