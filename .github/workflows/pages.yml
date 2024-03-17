@@ -22,12 +22,12 @@ jobs:
           npm install pnpm -g
           pnpm i
           pnpm run build --base=/${REPO}
-          git config --global user.name "github-actions-bot"
-          git config --global user.email "support+actions@github.com>"
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/fudan-generative-vision/${REPO}.git
-          git remote -v
-          npx gh-pages -d dist -u "github-actions-bot <support+actions@github.com>"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: Leeway213
           REPO: champ
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          repositorty-name: fudan-generative-vision/champ
+          target-folder: /
