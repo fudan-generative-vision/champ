@@ -75,8 +75,7 @@ const bibTex = ref(`@inproceedings{xu2023magicanimate,
 
     <br>
     <div class="main_video">
-      <video src="https://box.nju.edu.cn/seafhttp/files/92d85d35-e7ba-4b54-99c6-1dd52cf8966f/main_video.mp4" autoplay
-        muted loop controls></video>
+      <video v-lazy src="@/assets/video/main_video.mp4" muted loop controls></video>
     </div>
 
     <br>
@@ -85,56 +84,56 @@ const bibTex = ref(`@inproceedings{xu2023magicanimate,
     <br>
     <h3>Animate Human Image</h3>
     <div class="grid">
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
     </div>
 
     <br>
     <h3>Comparsions</h3>
     <div class="grid">
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
     </div>
 
     <br>
     <h3>Cross ID</h3>
     <div class="panel">
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
     </div>
 
     <br>
     <h3>Unseen domain</h3>
     <div class="grid">
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
     </div>
 
     <br>
     <h3>Combining with T2I</h3>
     <div class="grid">
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
-      <video src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" autoplay muted loop></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
+      <video v-lazy src="https://showlab.github.io/magicanimate/assets/teaser/t1.mp4" muted loop controls></video>
     </div>
 
     <br>
     <br>
-    <h3>Pipeline</h3>
+    <h3>Framework</h3>
     <div class="panel">
-      <img src="https://box.nju.edu.cn/seafhttp/files/1e6d3b00-c696-4bb6-8600-ffe3c5edfb5e/framework.jpg">
+      <img src="@/assets/img/framework.jpg">
     </div>
 
     <br>

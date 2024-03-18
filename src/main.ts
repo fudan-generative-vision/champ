@@ -9,7 +9,8 @@ import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
 import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-;(self as any).MonacoEnvironment = {
+;import videoLazy from './directives/video-lazy'
+(self as any).MonacoEnvironment = {
   getWorker(_: any, label: string) {
     if (label === 'json') {
       return new jsonWorker()
@@ -30,5 +31,7 @@ import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 const app = createApp(App)
 
 app.use(router)
+
+app.directive(videoLazy.name, videoLazy.option);
 
 app.mount('#app')
