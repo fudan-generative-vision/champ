@@ -7,6 +7,8 @@ const title = ref(config.title);
 
 const authors = ref(config.authors);
 
+const res = ref(config.res);
+
 const bibTex = ref(`@inproceedings{zhu2024champ,
     author = {${authors.value.map(v => v.name).join(', ')}},
     title = {${title.value.title}: ${title.value.subtitle}},
@@ -31,21 +33,21 @@ const bibTex = ref(`@inproceedings{zhu2024champ,
 
     <br>
     <div class="res_link">
-      <a class="button">
+      <a class="button" :href="res.pdf" target="_blank">
         <i class="iconfont icon-lm-pdf"></i>
         <span>Paper</span>
       </a>
-      <a class="button">
+      <a class="button" :href="res.arxiv" target="_blank">
         <i class="iconfont icon-lm-Arxiv"></i>
         <span>arXiv</span>
       </a>
 
-      <a class="button">
+      <a class="button" :href="res.github" target="_blank">
         <i class="iconfont icon-lm-github"></i>
         <span>Code</span>
       </a>
 
-      <a class="button">
+      <a class="button" :href="res.huggingface" target="_blank">
         <i class="iconfont icon-lm-huggingface"></i>
         <span>HuggingFace</span>
       </a>
@@ -177,16 +179,16 @@ main {
   }
 
   h2 {
-    @apply text-4xl text-center leading-loose;
+    @apply text-4xl text-center my-4;
   }
 
   h3 {
-    @apply text-2xl text-center leading-loose;
+    @apply text-2xl text-center my-2;
   }
 }
 
 .button {
-  @apply mr-3;
+  @apply mr-3 mt-2;
 
   i {
     @apply mr-1;
@@ -220,7 +222,8 @@ main {
   @apply w-full flex flex-row justify-center items-center flex-wrap;
 
   &>* {
-    @apply w-1/2 p-2;
+    @apply sm:w-1/2 sm:p-2;
+    @apply mb-8;
   }
 }
 
