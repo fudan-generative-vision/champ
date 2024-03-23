@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import MonacoEditor from 'monaco-editor-vue3';
+import { ref, onMounted, watch } from 'vue';
 import config from '@/config.json';
+import ComparisionVideos from '@/components/ComparisionVideos.vue';
+import AnimateHumanVideos from '@/components/AnimateHumanVideos.vue';
+import UnseenVideos from '@/components/UnseenVideos.vue';
+import T2IVideos from '@/components/T2IVideos.vue';
+import CrossIdVideos from '@/components/CrossIdVideos.vue';
 
 const title = ref(config.title);
 
@@ -15,6 +19,40 @@ const bibTex = ref(`@inproceedings{2024champ,
     booktile = {arxiv}
     year = {2024}
 }`);
+
+// import { initTWE, Carousel } from 'tw-elements';
+// onMounted(() => {
+//   initTWE({ Carousel }, { allowReinits: true });
+// });
+
+// const animateHumanVideos = ref<HTMLVideoElement[]>([]);
+// const animateHumanCarousel = ref<HTMLElement>();
+// watch(animateHumanCarousel, (v) => {
+//   if (v) {
+//     v.addEventListener('slide.twe.carousel', (evt: any) => {
+//       v.addEventListener('slide.twe.carousel', (v: any) => {
+//         const from = v.from;
+//         const to = v.to;
+//         animateHumanVideos.value[from]?.pause();
+//         animateHumanVideos.value[to]?.play();
+//       })
+//     });
+//   }
+// });
+
+// const comparisionsCarousel = ref<HTMLElement>();
+// const comparisionVideos = ref<HTMLVideoElement[]>([]);
+// watch(comparisionsCarousel, (newV) => {
+//   if (newV) {
+//     newV.addEventListener('slide.twe.carousel', (v: any) => {
+//       const from = v.from;
+//       const to = v.to;
+//       comparisionVideos.value[from]?.pause();
+//       comparisionVideos.value[to]?.play();
+//     })
+//   }
+// }, { once: true });
+
 </script>
 
 <template>
@@ -93,13 +131,8 @@ const bibTex = ref(`@inproceedings{2024champ,
 
     <section class="videos">
       <h3>Animate Human Image</h3>
-      <div class="grid">
-        <video v-lazy src="@/assets/video/human-animation/human-animation-1.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/human-animation/human-animation-2.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/human-animation/human-animation-3.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/human-animation/human-animation-4.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/human-animation/human-animation-5.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/human-animation/human-animation-6.mp4" muted loop controls></video>
+      <div class="panel">
+        <AnimateHumanVideos></AnimateHumanVideos>
       </div>
     </section>
 
@@ -107,22 +140,20 @@ const bibTex = ref(`@inproceedings{2024champ,
     <section class="comparisions">
       <h3>Comparisions</h3>
       <div class="panel">
-        <video v-lazy src="@/assets/video/comparisions/comparision-05.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/comparisions/comparision-07.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/comparisions/comparision-09.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/comparisions/comparision-10.mp4" muted loop controls></video>
+        <ComparisionVideos></ComparisionVideos>
       </div>
     </section>
 
     <section class="useen">
       <h3>Unseen Domain Animation</h3>
-      <div class="grid">
-        <video v-lazy src="@/assets/video/unseen/0.mp4" muted loop controls></video>
+      <div class="panel">
+        <UnseenVideos></UnseenVideos>
+        <!-- <video v-lazy src="@/assets/video/unseen/0.mp4" muted loop controls></video>
         <video v-lazy src="@/assets/video/unseen/1.mp4" muted loop controls></video>
         <video v-lazy src="@/assets/video/unseen/2.mp4" muted loop controls></video>
         <video v-lazy src="@/assets/video/unseen/3.mp4" muted loop controls></video>
         <video v-lazy src="@/assets/video/unseen/4.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/5.mp4" muted loop controls></video>
+        <video v-lazy src="@/assets/video/unseen/5.mp4" muted loop controls></video> -->
       </div>
     </section>
 
@@ -130,48 +161,21 @@ const bibTex = ref(`@inproceedings{2024champ,
     <section class="t2i">
       <h3>Combining with T2I</h3>
       <div class="panel">
-        <div>
-          <video v-lazy src="@/assets/video/T2I/0.mp4" muted loop controls></video>
-          <div class="t2i-caption">A woman in a silver dress posing for a picture, trending on cg society, futurism,
-            with bright blue eyes,
-            dior campaign, tesseract, miranda kerr --v 5. 1 --ar 3:4.</div>
-        </div>
-
-        <div>
-          <video v-lazy src="@/assets/video/T2I/1.mp4" muted loop controls></video>
-          <div class="t2i-caption">
-            A realistic depiction of Aang, the last airbender, showcasing his mastery of all bending elements while in
-            the powerful Avatar State. Ultra detailed, hd, 8k.
-          </div>
-        </div>
-
-        <div>
-          <video v-lazy src="@/assets/video/T2I/2.mp4" muted loop controls></video>
-          <div class="t2i-caption">A painting of a woman in a yellow dress, heavy metal comic cover art, space theme,
-            pin-up girl, silver
-            and yellow color scheme, where the planets are candy, inspired by Joyce Ballantyne Brand, full - body
-            artwork, lunar themed attire, golden age illustrator, blue and black color scheme.</div>
-        </div>
+        <T2IVideos></T2IVideos>
       </div>
     </section>
 
     <section class="cross-id">
       <h3>Cross-ID Animation</h3>
       <div class="panel">
-        <video v-lazy src="@/assets/video/cross-id/0.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/cross-id/1.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/cross-id/2.mp4" muted loop controls></video>
+        <CrossIdVideos></CrossIdVideos>
       </div>
     </section>
 
 
     <section class="bibtex">
       <h3>BibTeX</h3>
-      <div class="panel">
-        <MonacoEditor class="editor" :value="bibTex" :height="130" language="json" theme="vs-dark"
-          :options="{ renderValidationDecorations: 'off', readOnly: true, disableLayerHinting: true, hideCursorInOverviewRuler: true, onDidAttemptReadOnlyEdit: () => false, domReadOnly: true, automaticLayout: true, minimap: { enabled: false }, scrollbar: { vertical: 'hidden', handleMouseWheel: false } }">
-        </MonacoEditor>
-      </div>
+      <pre class="bibtex-code"><code>{{ bibTex }}</code></pre>
     </section>
 
   </main>
@@ -242,6 +246,11 @@ section {
   @apply font-light italic md:px-20 text-center leading-snug;
 }
 
+.bibtex-code {
+  @apply border-gray-300 bg-gray-300/15 p-4 rounded-lg w-full overflow-auto;
+  max-width: 960px;
+}
+
 .button {
   @apply mr-3 mt-2;
 
@@ -275,5 +284,27 @@ section {
 
 .editor {
   @apply min-w-full min-h-full;
+}
+
+.carousel__item {
+  min-height: 200px;
+  width: 100%;
+  background-color: var(--vc-clr-primary);
+  color: var(--vc-clr-white);
+  font-size: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel__slide {
+  padding: 10px;
+}
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
+  border: 5px solid white;
 }
 </style>

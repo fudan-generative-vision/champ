@@ -1,46 +1,42 @@
-
-const videos = new Map<HTMLVideoElement, DOMRect>();
-
+const videos = new Map<HTMLVideoElement, DOMRect>()
 
 function playOrPause(video: HTMLVideoElement) {
-  const { top, bottom } = video.getBoundingClientRect();
+  const { left, right, top, bottom } = video.getBoundingClientRect()
   if (bottom < 0 || top > window.innerHeight) {
-    video.pause();
-  } else {
-    video.play();
+    video.pause()
+  } else if (left != 0 && right != 0) {
+    video.play()
   }
 }
 
 const onscroll = (evt: Event) => {
   for (const video of videos.keys()) {
-    playOrPause(video);
+    playOrPause(video)
   }
-};
+}
 
 export default {
   name: 'lazy',
   option: {
     mounted: (el: HTMLElement) => {
       if (el instanceof HTMLVideoElement) {
-        videos.set(el, el.getBoundingClientRect());
+        videos.set(el, el.getBoundingClientRect())
         el.oncanplay = () => {
-          videos.set(el, el.getBoundingClientRect());
-          playOrPause(el);
+          videos.set(el, el.getBoundingClientRect())
+          playOrPause(el)
         }
       }
       if (videos.size) {
-        !window.onscroll && (window.onscroll = onscroll);
+        !window.onscroll && (window.onscroll = onscroll)
       }
     },
     unmounted: (el: HTMLElement) => {
       if (el instanceof HTMLVideoElement) {
-        videos.delete(el);
+        videos.delete(el)
       }
       if (!videos.size) {
-        window.onscroll = null;
+        window.onscroll = null
       }
-    },
+    }
   }
 }
-
-
