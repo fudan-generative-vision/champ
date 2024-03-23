@@ -129,21 +129,6 @@ const bibTex = ref(`@inproceedings{2024champ,
     </section>
 
 
-    <section class="videos">
-      <h3>Animate Human Image</h3>
-      <div class="panel">
-        <AnimateHumanVideos></AnimateHumanVideos>
-      </div>
-    </section>
-
-
-    <section class="comparisions">
-      <h3>Comparisions</h3>
-      <div class="panel">
-        <ComparisionVideos></ComparisionVideos>
-      </div>
-    </section>
-
     <section class="useen">
       <h3>Unseen Domain Animation</h3>
       <div class="panel">
@@ -151,6 +136,12 @@ const bibTex = ref(`@inproceedings{2024champ,
       </div>
     </section>
 
+    <section class="cross-id">
+      <h3>Cross-ID Animation</h3>
+      <div class="panel">
+        <CrossIdVideos></CrossIdVideos>
+      </div>
+    </section>
 
     <section class="t2i">
       <h3>Combining with T2I</h3>
@@ -159,10 +150,18 @@ const bibTex = ref(`@inproceedings{2024champ,
       </div>
     </section>
 
-    <section class="cross-id">
-      <h3>Cross-ID Animation</h3>
+    <section class="comparisions">
+      <h3>Comparisions with Existed Approaches</h3>
       <div class="panel">
-        <CrossIdVideos></CrossIdVideos>
+        <ComparisionVideos></ComparisionVideos>
+      </div>
+    </section>
+
+
+    <section class="videos">
+      <h3>Animation on TikTok Dataset</h3>
+      <div class="panel">
+        <AnimateHumanVideos></AnimateHumanVideos>
       </div>
     </section>
 
@@ -177,7 +176,12 @@ const bibTex = ref(`@inproceedings{2024champ,
 
 <style scoped lang="scss">
 main {
-  @apply w-full h-full flex flex-col items-center my-5;
+  @apply w-full h-full flex flex-col items-center;
+
+  >:nth-child(2n-1) {
+    @apply bg-white;
+    @apply dark:bg-black/50;
+  }
 
   h1 {
     @apply text-7xl text-center;
@@ -188,12 +192,12 @@ main {
   }
 
   h3 {
-    @apply text-4xl text-center my-5;
+    @apply text-3xl text-center my-5;
   }
 }
 
 section {
-  @apply w-full py-5 md:px-16;
+  @apply w-full py-10 md:px-16;
   @apply flex flex-col justify-center items-center;
 }
 
@@ -208,14 +212,14 @@ section {
   }
 
   video {
-    max-width: 768px;
+    max-width: 960px;
     @apply mt-4 block w-full;
   }
 }
 
 .framework {
   * {
-    max-width: 768px;
+    max-width: 960px;
     @apply w-full;
   }
 
@@ -223,7 +227,7 @@ section {
 
 .abstract {
   div {
-    max-width: 768px;
+    max-width: 960px;
     @apply w-full mt-2;
   }
 

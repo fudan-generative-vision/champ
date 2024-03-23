@@ -20,21 +20,20 @@ p {
 
 #app {
   margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
 }
 
 a,
 .green {
+  @apply text-blue-500;
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
   padding: 3px;
 }
 
 @media (hover: hover) {
   a:hover {
-    color: hsla(160, 100%, 37%, 0.464);
+    @apply text-blue-600;
   }
 }
 
@@ -49,7 +48,6 @@ a,
     width: 100%;
     height: 100%;
     grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }
 
