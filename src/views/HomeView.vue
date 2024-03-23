@@ -266,7 +266,7 @@ section {
   @apply w-full mt-2;
 
   &>* {
-    @apply mb-8;
+    @apply w-full mb-8;
   }
 
   :last-child {
