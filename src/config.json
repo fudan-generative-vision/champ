@@ -40,7 +40,7 @@
   "res": {
     "pdf": "",
     "arxiv": "",
-    "github": "",
+    "github": "https://github.com/fudan-generative-vision/champ",
     "huggingface": ""
   }
 }
