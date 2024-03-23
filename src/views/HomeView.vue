@@ -114,16 +114,6 @@ const bibTex = ref(`@inproceedings{2024champ,
       </div>
     </section>
 
-    <section class="cross-id">
-      <h3>Cross-ID Animation</h3>
-      <div class="panel">
-        <video v-lazy src="@/assets/video/cross-id/0.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/cross-id/1.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/cross-id/2.mp4" muted loop controls></video>
-      </div>
-    </section>
-
-
     <section class="useen">
       <h3>Unseen Domain Animation</h3>
       <div class="grid">
@@ -164,6 +154,16 @@ const bibTex = ref(`@inproceedings{2024champ,
         </div>
       </div>
     </section>
+
+    <section class="cross-id">
+      <h3>Cross-ID Animation</h3>
+      <div class="panel">
+        <video v-lazy src="@/assets/video/cross-id/0.mp4" muted loop controls></video>
+        <video v-lazy src="@/assets/video/cross-id/1.mp4" muted loop controls></video>
+        <video v-lazy src="@/assets/video/cross-id/2.mp4" muted loop controls></video>
+      </div>
+    </section>
+
 
     <section class="bibtex">
       <h3>BibTeX</h3>
