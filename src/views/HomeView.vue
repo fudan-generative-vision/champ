@@ -197,7 +197,7 @@ main {
 }
 
 section {
-  @apply w-full py-10 md:px-16;
+  @apply w-full py-10 md:px-16 px-6;
   @apply flex flex-col justify-center items-center;
 }
 

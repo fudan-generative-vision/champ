@@ -106,11 +106,11 @@ const t2iCaptions = ref([
     </button>
   </div>
 
-  <div class="t2i-caption">{{ t2iCaptions[t2iIndex] }}</div>
+  <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div>
 </template>
 
 <style scoped>
 .t2i-caption {
-  @apply font-light italic md:px-20 text-center leading-snug mt-2;
+  @apply font-light md:px-20 text-center leading-snug mt-2;
 }
 </style>

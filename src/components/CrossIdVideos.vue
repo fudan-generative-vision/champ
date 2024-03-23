@@ -91,8 +91,4 @@ watch(crossIdCarousel, (newV) => {
   </div>
 </template>
 
-<style scoped>
-video {
-  height: 500px;
-}
-</style>
+<style scoped></style>

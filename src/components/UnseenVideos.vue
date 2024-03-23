@@ -13,7 +13,9 @@ watch(unseenCarousel, (newV) => {
       const from = v.from;
       const to = v.to;
       videos.value[from]?.pause();
-      videos.value[to]?.play();
+      videos.value[from + 1]?.pause();
+      videos.value[2 * to]?.play();
+      videos.value[2 * to + 1]?.play();
     })
   }
 }, { once: true });
@@ -26,43 +28,30 @@ watch(unseenCarousel, (newV) => {
     <div class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
       <!--First item-->
       <div
-        class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+        class="video-group relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-active data-twe-carousel-item style="backface-visibility: hidden">
         <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/unseen/0.mp4" muted loop autoplay></video>
-
+        <div></div>
+        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/unseen/1.mp4" muted loop></video>
       </div>
       <!--Second item-->
       <div
-        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+        class="video-group relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
-
-        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/unseen/1.mp4" muted loop></video>
+        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/unseen/2.mp4" muted loop></video>
+        <div></div>
+        <video :ref="(el: any) => videos[3] = el" v-lazy src="@/assets/video/unseen/3.mp4" muted loop></video>
       </div>
       <!--Third item-->
       <div
-        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+        class="video-group relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
 
-        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/unseen/2.mp4" muted loop></video>
-      </div>
-
-      <!--Forth item-->
-      <div
-        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-        data-twe-carousel-item style="backface-visibility: hidden">
-        <video :ref="(el: any) => videos[3] = el" v-lazy src="@/assets/video/unseen/3.mp4" muted loop></video>
-      </div>
-
-      <div
-        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-        data-twe-carousel-item style="backface-visibility: hidden">
         <video :ref="(el: any) => videos[4] = el" v-lazy src="@/assets/video/unseen/4.mp4" muted loop></video>
-      </div>
-      <div
-        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-        data-twe-carousel-item style="backface-visibility: hidden">
+        <div></div>
         <video :ref="(el: any) => videos[5] = el" v-lazy src="@/assets/video/unseen/5.mp4" muted loop></video>
       </div>
+
     </div>
 
     <!--Carousel indicators-->
@@ -77,15 +66,7 @@ watch(unseenCarousel, (newV) => {
       <button type="button" data-twe-target="#unseenCarousel" data-twe-slide-to="2"
         class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
         aria-label="Slide 3"></button>
-      <button type="button" data-twe-target="#unseenCarousel" data-twe-slide-to="3"
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-        aria-label="Slide 4"></button>
-      <button type="button" data-twe-target="#unseenCarousel" data-twe-slide-to="4"
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-        aria-label="Slide 5"></button>
-      <button type="button" data-twe-target="#unseenCarousel" data-twe-slide-to="5"
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-        aria-label="Slide 6"></button>
+
     </div>
 
     <!--Carousel controls - prev item-->
@@ -116,3 +97,29 @@ watch(unseenCarousel, (newV) => {
     </button>
   </div>
 </template>
+
+<style scoped lang="scss">
+.video-group {
+  video {
+    width: 49%;
+  }
+
+  @media (max-width: 768px) {
+    video {
+      width: 100% !important;
+    }
+
+    div {
+      width: 0;
+    }
+  }
+
+  div {
+    width: 1%;
+  }
+
+  * {
+    @apply inline-block;
+  }
+}
+</style>
