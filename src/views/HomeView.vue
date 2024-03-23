@@ -92,7 +92,6 @@ const bibTex = ref(`@inproceedings{2024champ,
 
 
     <section class="videos">
-      <h2>Video Show Cases</h2>
       <h3>Animate Human Image</h3>
       <div class="grid">
         <video v-lazy src="@/assets/video/human-animation/human-animation-1.mp4" muted loop controls></video>
@@ -191,7 +190,7 @@ main {
   }
 
   h3 {
-    @apply text-3xl text-center my-5;
+    @apply text-4xl text-center my-5;
   }
 }
 
