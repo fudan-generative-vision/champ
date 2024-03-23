@@ -32,7 +32,7 @@ watch(unseenCarousel, (newV) => {
         data-twe-carousel-active data-twe-carousel-item style="backface-visibility: hidden">
         <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/unseen/0.mp4" muted loop autoplay></video>
         <div></div>
-        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/unseen/1.mp4" muted loop></video>
+        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/unseen/1.mp4" muted loop autoplay></video>
       </div>
       <!--Second item-->
       <div
