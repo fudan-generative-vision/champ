@@ -83,7 +83,7 @@ Here is the command for inference:
 Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`. We will later provide the code for obtaining driving motion from in-the-wild videos.
 
 # Acknowledgements
-We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-animate), Animate Anyone(https://github.com/HumanAIGC/AnimateAnyone), and AnimateDiff(https://github.com/guoyww/AnimateDiff) for their excellent work. Our project is built upon Moore-AnimateAnyone(https://github.com/MooreThreads/Moore-AnimateAnyone), and we are grateful for their open-source contributions.
+We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-animate), [Animate Anyone](https://github.com/HumanAIGC/AnimateAnyone), and [AnimateDiff](https://github.com/guoyww/AnimateDiff) for their excellent work. Our project is built upon [Moore-AnimateAnyone](https://github.com/MooreThreads/Moore-AnimateAnyone), and we are grateful for their open-source contributions.
 
 # Citation
 If you find our work useful for your research, please consider citing the paper:
