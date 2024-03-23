@@ -1,0 +1,6 @@
+pretrained_models/
+example_data/
+results/
+*.zip
+.vscode/
+.hypothesis/
