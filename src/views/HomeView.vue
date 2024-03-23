@@ -80,13 +80,13 @@ const bibTex = ref(`@inproceedings{2024champ,
 
         <a class="button" :href="res.github" target="_blank">
           <i class="iconfont icon-lm-github"></i>
-          <span>Code</span>
+          <span>Code (comming soon)</span>
         </a>
 
-        <a class="button" :href="res.huggingface" target="_blank">
+        <!-- <a class="button" :href="res.huggingface" target="_blank">
           <i class="iconfont icon-lm-huggingface"></i>
           <span>HuggingFace</span>
-        </a>
+        </a> -->
       </div>
 
       <video v-lazy src="@/assets/video/main_video.mp4" muted loop controls></video>
@@ -148,12 +148,6 @@ const bibTex = ref(`@inproceedings{2024champ,
       <h3>Unseen Domain Animation</h3>
       <div class="panel">
         <UnseenVideos></UnseenVideos>
-        <!-- <video v-lazy src="@/assets/video/unseen/0.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/1.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/2.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/3.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/4.mp4" muted loop controls></video>
-        <video v-lazy src="@/assets/video/unseen/5.mp4" muted loop controls></video> -->
       </div>
     </section>
 
