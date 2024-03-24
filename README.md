@@ -94,5 +94,4 @@ If you find our work useful for your research, please consider citing the paper:
     booktile = {arxiv}
     year = {2024}
 }
-}
 ```
