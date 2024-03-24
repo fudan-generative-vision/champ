@@ -13,7 +13,9 @@ watch(crossIdCarousel, (newV) => {
       const from = v.from;
       const to = v.to;
       videos.value[from]?.pause();
-      videos.value[to]?.play();
+      videos.value[from + 1]?.pause();
+      videos.value[2 * to]?.play();
+      videos.value[2 * to + 1]?.play();
     })
   }
 }, { once: true });
@@ -42,9 +44,9 @@ watch(crossIdCarousel, (newV) => {
         data-twe-carousel-item style="backface-visibility: hidden">
 
         <div class="video-group">
-          <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/cross-id/1.mp4" muted loop></video>
+          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/1.mp4" muted loop></video>
           <div></div>
-          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
+          <video :ref="(el: any) => videos[3] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
         </div>
       </div>
       <!--Third item-->
@@ -53,9 +55,9 @@ watch(crossIdCarousel, (newV) => {
         data-twe-carousel-item style="backface-visibility: hidden">
 
         <div class="video-group">
-          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
+          <video :ref="(el: any) => videos[4] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
           <div></div>
-          <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/cross-id/0.mp4" muted loop
+          <video :ref="(el: any) => videos[5] = el" v-lazy src="@/assets/video/cross-id/0.mp4" muted loop
             autoplay></video>
         </div>
       </div>
