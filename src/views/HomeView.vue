@@ -20,39 +20,6 @@ const bibTex = ref(`@inproceedings{2024champ,
     year = {2024}
 }`);
 
-// import { initTWE, Carousel } from 'tw-elements';
-// onMounted(() => {
-//   initTWE({ Carousel }, { allowReinits: true });
-// });
-
-// const animateHumanVideos = ref<HTMLVideoElement[]>([]);
-// const animateHumanCarousel = ref<HTMLElement>();
-// watch(animateHumanCarousel, (v) => {
-//   if (v) {
-//     v.addEventListener('slide.twe.carousel', (evt: any) => {
-//       v.addEventListener('slide.twe.carousel', (v: any) => {
-//         const from = v.from;
-//         const to = v.to;
-//         animateHumanVideos.value[from]?.pause();
-//         animateHumanVideos.value[to]?.play();
-//       })
-//     });
-//   }
-// });
-
-// const comparisionsCarousel = ref<HTMLElement>();
-// const comparisionVideos = ref<HTMLVideoElement[]>([]);
-// watch(comparisionsCarousel, (newV) => {
-//   if (newV) {
-//     newV.addEventListener('slide.twe.carousel', (v: any) => {
-//       const from = v.from;
-//       const to = v.to;
-//       comparisionVideos.value[from]?.pause();
-//       comparisionVideos.value[to]?.play();
-//     })
-//   }
-// }, { once: true });
-
 </script>
 
 <template>
@@ -80,7 +47,7 @@ const bibTex = ref(`@inproceedings{2024champ,
 
         <a class="button" :href="res.github" target="_blank">
           <i class="iconfont icon-lm-github"></i>
-          <span>Code (comming soon)</span>
+          <span>Code</span>
         </a>
 
         <!-- <a class="button" :href="res.huggingface" target="_blank">
