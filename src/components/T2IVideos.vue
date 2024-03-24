@@ -117,14 +117,17 @@ const t2iCaptions = ref([
 
 
 .item-content {
-  @apply flex flex-row justify-between items-center;
+  @apply flex flex-col-reverse md:flex-row md:justify-between md:items-center;
 
   video {
-    @apply w-1/2;
+    @apply w-full md:w-1/2;
   }
 
   div {
-    @apply w-1/2 pl-2 pr-20 font-thin;
+    @apply md:w-1/2 md:pl-2 md:pr-20 md:mt-0;
+    @apply w-full mx-2 mt-2;
+    @apply font-thin leading-tight;
+    text-align: justify;
   }
 }
 </style>
