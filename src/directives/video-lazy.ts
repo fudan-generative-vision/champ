@@ -1,11 +1,12 @@
+import { inVisible } from '@/utils/video'
+
 const videos = new Map<HTMLVideoElement, DOMRect>()
 
 function playOrPause(video: HTMLVideoElement) {
-  const { left, right, top, bottom } = video.getBoundingClientRect()
-  if (bottom < 0 || top > window.innerHeight) {
-    video.pause()
-  } else if (left != 0 && right != 0) {
+  if (inVisible(video)) {
     video.play()
+  } else {
+    video.pause()
   }
 }
 

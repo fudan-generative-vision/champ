@@ -1,24 +1,37 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { initTWE, Carousel } from 'tw-elements';
+import { inVisible } from '@/utils/video';
 onMounted(() => {
   initTWE({ Carousel }, { allowReinits: true });
+
+  animateHumanCarousel.value?.addEventListener('slide.twe.carousel', (v: any) => {
+    const from = v.from;
+    const to = v.to;
+    videos.value[2 * from]?.pause();
+    videos.value[2 * from + 1]?.pause();
+    if (inVisible(videos.value[2 * from])) {
+      videos.value[2 * to].play();
+      videos.value[2 * to + 1].play();
+    }
+  })
+
 });
 
 const animateHumanCarousel = ref<HTMLElement>();
 const videos = ref<HTMLVideoElement[]>([]);
-watch(animateHumanCarousel, (newV) => {
-  if (newV) {
-    newV.addEventListener('slide.twe.carousel', (v: any) => {
-      const from = v.from;
-      const to = v.to;
-      videos.value[from]?.pause();
-      videos.value[from + 1]?.pause();
-      videos.value[2 * to]?.play();
-      videos.value[2 * to + 1]?.play();
-    })
-  }
-}, { once: true });
+// watch(animateHumanCarousel, (newV) => {
+//   if (newV) {
+//     newV.addEventListener('slide.twe.carousel', (v: any) => {
+//       const from = v.from;
+//       const to = v.to;
+//       videos.value[from]?.pause();
+//       videos.value[from + 1]?.pause();
+//       videos.value[2 * to]?.play();
+//       videos.value[2 * to + 1]?.play();
+//     })
+//   }
+// }, { once: true });
 </script>
 
 <template>

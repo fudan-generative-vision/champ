@@ -1,25 +1,37 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { initTWE, Carousel } from 'tw-elements';
+import { inVisible } from '@/utils/video';
 onMounted(() => {
   initTWE({ Carousel }, { allowReinits: true });
+
+  t2iCarousel.value?.addEventListener('slide.twe.carousel', (v: any) => {
+    const from = v.from;
+    const to = v.to;
+    videos.value[from]?.pause();
+    if (inVisible(videos.value[from])) {
+      videos.value[to].play();
+    }
+
+    t2iIndex.value = to;
+  })
 });
 
 const t2iCarousel = ref<HTMLElement>();
 const videos = ref<HTMLVideoElement[]>([]);
 const t2iIndex = ref(0);
-watch(t2iCarousel, (newV) => {
-  if (newV) {
-    newV.addEventListener('slide.twe.carousel', (v: any) => {
-      const from = v.from;
-      const to = v.to;
-      videos.value[from]?.pause();
-      videos.value[to]?.play();
+// watch(t2iCarousel, (newV) => {
+//   if (newV) {
+//     newV.addEventListener('slide.twe.carousel', (v: any) => {
+//       const from = v.from;
+//       const to = v.to;
+//       videos.value[from]?.pause();
+//       videos.value[to]?.play();
 
-      t2iIndex.value = to;
-    })
-  }
-}, { once: true });
+//       t2iIndex.value = to;
+//     })
+//   }
+// }, { once: true });
 
 const t2iCaptions = ref([
   `A woman in a silver dress posing for a picture, trending on cg society, futurism,

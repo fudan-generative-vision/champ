@@ -7,8 +7,7 @@
 }
 
 .indicator-left-btn {
-  @apply md:-left-20 -left-8;
-  @apply md:-translate-x-2;
+  @apply md:-left-24 -left-8;
 }
 
 .indicator-right-btn {

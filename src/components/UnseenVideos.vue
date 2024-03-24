@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { initTWE, Carousel } from 'tw-elements';
-onMounted(() => {
-  initTWE({ Carousel }, { allowReinits: true });
-});
-
+import { inVisible } from '@/utils/video';
 const unseenCarousel = ref<HTMLElement>();
 const videos = ref<HTMLVideoElement[]>([]);
-watch(unseenCarousel, (newV) => {
-  if (newV) {
-    newV.addEventListener('slide.twe.carousel', (v: any) => {
-      const from = v.from;
-      const to = v.to;
-      videos.value[from]?.pause();
-      videos.value[from + 1]?.pause();
-      videos.value[2 * to]?.play();
-      videos.value[2 * to + 1]?.play();
-    })
-  }
-}, { once: true });
+
+onMounted(() => {
+  initTWE({ Carousel }, { allowReinits: true });
+
+  unseenCarousel.value?.addEventListener('slide.twe.carousel', (v: any) => {
+    const from = v.from;
+    const to = v.to;
+    videos.value[2 * from]?.pause();
+    videos.value[2 * from + 1]?.pause();
+    if (inVisible(videos.value[2 * from])) {
+      videos.value[2 * to].play();
+      videos.value[2 * to + 1].play();
+    }
+  })
+
+});
+
 </script>
 
 <template>
@@ -38,9 +40,9 @@ watch(unseenCarousel, (newV) => {
       <div
         class="video-group relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
-        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/unseen/2.mp4" muted loop></video>
+        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/unseen/2.mp4" muted loop autoplay></video>
         <div></div>
-        <video :ref="(el: any) => videos[3] = el" v-lazy src="@/assets/video/unseen/3.mp4" muted loop></video>
+        <video :ref="(el: any) => videos[3] = el" v-lazy src="@/assets/video/unseen/3.mp4" muted loop autoplay></video>
       </div>
       <!--Third item-->
       <div

@@ -1,22 +1,32 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { initTWE, Carousel } from 'tw-elements';
+import { inVisible } from '@/utils/video';
 onMounted(() => {
   initTWE({ Carousel }, { allowReinits: true });
+
+  comparisionsCarousel.value?.addEventListener('slide.twe.carousel', (v: any) => {
+    const from = v.from;
+    const to = v.to;
+    comparisionVideos.value[from]?.pause();
+    if (inVisible(comparisionVideos.value[from])) {
+      comparisionVideos.value[to].play();
+    }
+  })
 });
 
 const comparisionsCarousel = ref<HTMLElement>();
 const comparisionVideos = ref<HTMLVideoElement[]>([]);
-watch(comparisionsCarousel, (newV) => {
-  if (newV) {
-    newV.addEventListener('slide.twe.carousel', (v: any) => {
-      const from = v.from;
-      const to = v.to;
-      comparisionVideos.value[from]?.pause();
-      comparisionVideos.value[to]?.play();
-    })
-  }
-}, { once: true });
+// watch(comparisionsCarousel, (newV) => {
+//   if (newV) {
+//     newV.addEventListener('slide.twe.carousel', (v: any) => {
+//       const from = v.from;
+//       const to = v.to;
+//       comparisionVideos.value[from]?.pause();
+//       comparisionVideos.value[to]?.play();
+//     })
+//   }
+// }, { once: true });
 </script>
 
 <template>
