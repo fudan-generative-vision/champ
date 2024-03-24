@@ -43,45 +43,47 @@ const t2iCaptions = ref([
       <div
         class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-active data-twe-carousel-item style="backface-visibility: hidden">
-
-        <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/T2I/0.mp4" muted loop autoplay></video>
-
-
+        <div class="item-content">
+          <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div>
+          <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/T2I/0.mp4" muted loop autoplay></video>
+        </div>
       </div>
       <!--Second item-->
       <div
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
-        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/T2I/1.mp4" muted loop></video>
+
+        <div class="item-content">
+          <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div>
+          <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/T2I/1.mp4" muted loop></video>
+        </div>
 
       </div>
       <!--Third item-->
       <div
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
-        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/T2I/2.mp4" muted loop></video>
+        <div class="item-content">
+          <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div>
+          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/T2I/2.mp4" muted loop></video>
+        </div>
       </div>
 
     </div>
 
     <!--Carousel indicators-->
-    <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
+    <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] -mb-8 flex list-none justify-center p-0"
       data-twe-carousel-indicators>
       <button type="button" data-twe-target="#t2iCarousel" data-twe-slide-to="0" data-twe-carousel-active
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-twe-target="#t2iCarousel" data-twe-slide-to="1"
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+        class="indicator" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-twe-target="#t2iCarousel" data-twe-slide-to="1" class="indicator"
         aria-label="Slide 2"></button>
-      <button type="button" data-twe-target="#t2iCarousel" data-twe-slide-to="2"
-        class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
+      <button type="button" data-twe-target="#t2iCarousel" data-twe-slide-to="2" class="indicator"
         aria-label="Slide 3"></button>
     </div>
 
     <!--Carousel controls - prev item-->
-    <button
-      class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-      type="button" data-twe-target="#t2iCarousel" data-twe-slide="prev">
+    <button class="indicator-btn indicator-left-btn" type="button" data-twe-target="#t2iCarousel" data-twe-slide="prev">
       <span class="inline-block h-8 w-8">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="h-6 w-6">
@@ -92,9 +94,8 @@ const t2iCaptions = ref([
         class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Previous</span>
     </button>
     <!--Carousel controls - next item-->
-    <button
-      class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
-      type="button" data-twe-target="#t2iCarousel" data-twe-slide="next">
+    <button class="indicator-btn indicator-right-btn" type="button" data-twe-target="#t2iCarousel"
+      data-twe-slide="next">
       <span class="inline-block h-8 w-8">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="h-6 w-6">
@@ -106,11 +107,24 @@ const t2iCaptions = ref([
     </button>
   </div>
 
-  <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div>
+  <!-- <div class="t2i-caption"><span>Prompt: </span>{{ t2iCaptions[t2iIndex] }}</div> -->
 </template>
 
 <style scoped>
-.t2i-caption {
-  @apply font-light md:px-20 text-center leading-snug mt-2;
+/* .t2i-caption {
+  @apply font-light text-center leading-snug mt-2 px-4;
+} */
+
+
+.item-content {
+  @apply flex flex-row justify-between items-center;
+
+  video {
+    @apply w-1/2;
+  }
+
+  div {
+    @apply w-1/2 pl-2 pr-20 font-thin;
+  }
 }
 </style>
