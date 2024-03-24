@@ -28,8 +28,12 @@ watch(crossIdCarousel, (newV) => {
       <div
         class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-active data-twe-carousel-item style="backface-visibility: hidden">
-        <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/cross-id/0.mp4" muted loop
-          autoplay></video>
+        <div class="video-group">
+          <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/cross-id/0.mp4" muted loop
+            autoplay></video>
+          <div></div>
+          <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/cross-id/1.mp4" muted loop></video>
+        </div>
 
       </div>
       <!--Second item-->
@@ -37,14 +41,23 @@ watch(crossIdCarousel, (newV) => {
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
 
-        <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/cross-id/1.mp4" muted loop></video>
+        <div class="video-group">
+          <video :ref="(el: any) => videos[1] = el" v-lazy src="@/assets/video/cross-id/1.mp4" muted loop></video>
+          <div></div>
+          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
+        </div>
       </div>
       <!--Third item-->
       <div
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-twe-carousel-item style="backface-visibility: hidden">
 
-        <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
+        <div class="video-group">
+          <video :ref="(el: any) => videos[2] = el" v-lazy src="@/assets/video/cross-id/2.mp4" muted loop></video>
+          <div></div>
+          <video :ref="(el: any) => videos[0] = el" v-lazy src="@/assets/video/cross-id/0.mp4" muted loop
+            autoplay></video>
+        </div>
       </div>
     </div>
 
@@ -86,4 +99,28 @@ watch(crossIdCarousel, (newV) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.video-group {
+  video {
+    width: 49%;
+  }
+
+  @media (max-width: 768px) {
+    video {
+      width: 100% !important;
+    }
+
+    div {
+      width: 0;
+    }
+  }
+
+  div {
+    width: 1%;
+  }
+
+  * {
+    @apply inline-block;
+  }
+}
+</style>
