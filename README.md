@@ -78,7 +78,7 @@ Finally, these pretrained models should be organized as follows:
 We have provided several sets of [example data]() for inference. Please first download and place them in the `example_data` folder.
 Here is the command for inference:
 ```bash
-  python inference.py --config configs/inference.yanml
+  python inference.py --config configs/inference.yaml
 ```
 Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`. We will later provide the code for obtaining driving motion from in-the-wild videos.
 
