@@ -1,0 +1,15 @@
+--extra-index-url https://download.pytorch.org/whl/cu118
+accelerate==0.21.0
+diffusers==0.24.0
+einops==0.4.1
+imageio==2.33.0
+imageio[ffmpeg]
+numpy==1.23.5
+omegaconf==2.2.3
+Pillow==9.5.0
+safetensors==0.4.2
+torch==2.0.1
+torchvision==0.15.2
+tqdm==4.66.1
+transformers==4.30.2
+xformers==0.0.22

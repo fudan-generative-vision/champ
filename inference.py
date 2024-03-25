@@ -9,17 +9,17 @@ import numpy as np
 import torch
 import torch.utils.checkpoint
 from torchvision import transforms
-from diffusers import AutoencoderKL, DDIMScheduler
+from diffusers import DDIMScheduler
 from diffusers.utils.import_utils import is_xformers_available
 from omegaconf import OmegaConf
 from PIL import Image
 from transformers import CLIPVisionModelWithProjection
 
-from models.unet_2d_condition import UNet2DConditionModel
 from models.unet_3d import UNet3DConditionModel
 from models.mutual_self_attention import ReferenceAttentionControl
 from models.guidance_encoder import GuidanceEncoder
 from models.champ_model import ChampModel
+from models.model_util import load_models, torch_gc, get_torch_device
 
 from pipelines.pipeline_aggregation import MultiGuidance2LongVideoPipeline
 
@@ -127,7 +127,7 @@ def inference(
     ).videos
     
     del pipeline
-    torch.cuda.empty_cache()
+    torch_gc()
     
     return video
     
@@ -142,6 +142,7 @@ def main(cfg):
     logging.info(f"Running inference ...")
     
     # setup pretrained models
+    device = get_torch_device()
     if cfg.weight_dtype == "fp16":
         weight_dtype = torch.float16
     else:
@@ -161,21 +162,26 @@ def main(cfg):
         cfg.image_encoder_path,
     ).to(dtype=weight_dtype, device="cuda")
     
-    vae = AutoencoderKL.from_pretrained(cfg.vae_model_path).to(
-        dtype=weight_dtype, device="cuda"
-    )
+    (_,_,unet,_,vae,) = load_models(
+                    cfg.base_model_path,
+                    scheduler_name="",
+                    v2=False,
+                    v_pred=False,
+                    weight_dtype=weight_dtype,
+                )
+    vae = vae.to(device, dtype=weight_dtype)
+    reference_unet = unet.to(dtype=weight_dtype, device=device)
+    
+    # vae = AutoencoderKL.from_pretrained(cfg.vae_model_path).to(
+    #     dtype=weight_dtype, device="cuda"
+    # )
     
     denoising_unet = UNet3DConditionModel.from_pretrained_2d(
         cfg.base_model_path,
         cfg.motion_module_path,
         subfolder="unet",
         unet_additional_kwargs=cfg.unet_additional_kwargs,
-    ).to(dtype=weight_dtype, device="cuda")
-    
-    reference_unet = UNet2DConditionModel.from_pretrained(
-        cfg.base_model_path,
-        subfolder="unet",
-    ).to(device="cuda", dtype=weight_dtype)
+    ).to(dtype=weight_dtype, device=device)
     
     guidance_encoder_group = setup_guidance_encoder(cfg)
     
