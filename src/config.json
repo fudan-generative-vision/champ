@@ -38,8 +38,8 @@
     }
   ],
   "res": {
-    "pdf": "",
-    "arxiv": "",
+    "pdf": "https://arxiv.org/pdf/2403.14781",
+    "arxiv": "https://arxiv.org/abs/2403.14781",
     "github": "https://github.com/fudan-generative-vision/champ",
     "huggingface": ""
   }
