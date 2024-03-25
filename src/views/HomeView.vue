@@ -13,11 +13,13 @@ const authors = ref(config.authors);
 
 const res = ref(config.res);
 
-const bibTex = ref(`@inproceedings{2024champ,
-    author = {${authors.value.map(v => v.name).join(', ')}},
-    title = {${title.value.title}: ${title.value.subtitle}},
-    booktile = {arxiv}
-    year = {2024}
+const bibTex = ref(`@misc{zhu2024champ,
+      title={Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance}, 
+      author={Shenhao Zhu and Junming Leo Chen and Zuozhuo Dai and Yinghui Xu and Xun Cao and Yao Yao and Hao Zhu and Siyu Zhu},
+      year={2024},
+      eprint={2403.14781},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }`);
 
 </script>
