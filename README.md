@@ -75,12 +75,14 @@ Finally, these pretrained models should be organized as follows:
 ```
 
 # Inference
-We have provided several sets of [example data](https://drive.google.com/file/d/1-sJlnnZu-nTNTvRtvFVr_y-2_CA5-_Yz/view?usp=sharing) for inference. Please first download and place them in the `example_data` folder.
+We have provided several sets of [example data](https://drive.google.com/file/d/1-sJlnnZu-nTNTvRtvFVr_y-2_CA5-_Yz/view?usp=sharing) for inference. Please first download and place them in the `example_data` folder. 
 Here is the command for inference:
 ```bash
   python inference.py --config configs/inference.yaml
 ```
-Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`. We will later provide the code for obtaining driving motion from in-the-wild videos.
+Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`. 
+
+You can also extract the driving motion from any videos and then render with Blender. We will later provide the instructions and scripts for this.
 
 # Acknowledgements
 We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-animate), [Animate Anyone](https://github.com/HumanAIGC/AnimateAnyone), and [AnimateDiff](https://github.com/guoyww/AnimateDiff) for their excellent work. Our project is built upon [Moore-AnimateAnyone](https://github.com/MooreThreads/Moore-AnimateAnyone), and we are grateful for their open-source contributions.
