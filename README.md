@@ -18,6 +18,11 @@
     <sup>+</sup>Corresponding Author
 </div>
 
+<div align='Center'>
+    <a href='https://fudan-generative-vision.github.io/champ/#/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
+    <a href='https://arxiv.org/abs/2403.14781'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
+</div>
+
 # Framework
 ![framework](assets/framework.jpg)
 
@@ -90,10 +95,12 @@ We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-a
 # Citation
 If you find our work useful for your research, please consider citing the paper:
 ```
-@inproceedings{zhu2024champ,
-    author = {Shenhao Zhu*, Junming Leo Chen*, Zuozhuo Dai, Yinghui Xu, Xun Cao, Yao Yao, Hao Zhu, Siyu Zhu},
-    title = {Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance},
-    booktile = {arxiv}
-    year = {2024}
+@misc{zhu2024champ,
+      title={Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance}, 
+      author={Shenhao Zhu and Junming Leo Chen and Zuozhuo Dai and Yinghui Xu and Xun Cao and Yao Yao and Hao Zhu and Siyu Zhu},
+      year={2024},
+      eprint={2403.14781},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 ```
