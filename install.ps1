@@ -10,20 +10,33 @@ if (!(Test-Path -Path "venv")) {
 }
 .\venv\Scripts\activate
 
-Write-Output "Installing dependences..."
-pip install torch==2.1.1 torchvision==0.16.1 torchaudio==2.1.1 --index-url https://download.pytorch.org/whl/cu118
-
+Write-Output "Installing dependencies..."
 pip install -U -r requirements-windows.txt
 
-pip install pyiqa==0.1.7 --no-deps
+Write-Output "Check Models..."
+if (!(Test-Path -Path "pretrained_models")) {
+    mkdir "pretrained_models"
+}
 
-pip uninstall tb-nightly tensorboard tensorflow-estimator tensorflow-gpu tf-estimator-nightly
+Set-Location .\pretrained_models
 
-pip install tensorflow
+if (!(Test-Path -Path "champ")) {
+    Write-Output  "Downloading champ..."
+    huggingface-cli download --resume-download bdsqlsz/Champ --local-dir champ
+}
 
-wget https://github.com/Kiteretsu77/APISR/releases/download/v0.1.0/4x_APISR_GRL_GAN_generator.pth -o pretrained/4x_APISR_GRL_GAN_generator.pth
+if (!(Test-Path -Path "image_encoder")) {
+    Write-Output  "Downloading image_encoder..."
+    huggingface-cli download --resume-download bdsqlsz/image_encoder --local-dir image_encoder
+}
 
-wget https://github.com/Kiteretsu77/APISR/releases/download/v0.1.0/2x_APISR_RRDB_GAN_generator.pth -o pretrained/2x_APISR_RRDB_GAN_generator.pth
+$install_SD15 = Read-Host "Do you need to download SD15? If you don't have any SD15 model locally select y, if you want to change to another SD1.5 model select n. [y/n] (Default is y)"
+if ($install_SD15 -eq "y" -or $install_SD15 -eq "Y" -or $install_SD15 -eq "") {
+    if (!(Test-Path -Path "stable-diffusion-v1-5")) {
+        Write-Output  "Downloading stable-diffusion-v1-5 ..."
+        huggingface-cli download --resume-download bdsqlsz/stable-diffusion-v1-5 --local-dir stable-diffusion-v1-5   
+    }
+}
 
 Write-Output "Installed finish"
 Read-Host | Out-Null ;
