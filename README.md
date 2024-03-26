@@ -107,3 +107,12 @@ If you find our work useful for your research, please consider citing the paper:
       primaryClass={cs.CV}
 }
 ```
+
+# Opportunities available
+Multiple research positions are open at the **Generative Vision Lab, Fudan University**! Include:
+* Research assistant
+* Postdoctoral researcher
+* PhD candidate
+* Master students
+
+Interested individuals are encouraged to contact us at [siyuzhu@fudan.edu.cn](mailto://siyuzhu@fudan.edu.cn) for further information.
