@@ -57,7 +57,8 @@ Install packages with `pip`:
    - [image_encoder](https://huggingface.co/lambdalabs/sd-image-variations-diffusers/tree/main/image_encoder)
 
 2. Download our checkpoints: \
-   Our [checkpoints](https://drive.google.com/drive/folders/1hZiOHG-qDf0Pj7tvfxC70JQ6wHUvUDoY?usp=sharing) consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
+
+Our [checkpoints](https://huggingface.co/fudan-generative-ai/champ/tree/main) consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
 
 Finally, these pretrained models should be organized as follows:
 
@@ -90,7 +91,8 @@ Finally, these pretrained models should be organized as follows:
 
 # Inference
 
-We have provided several sets of [example data](https://drive.google.com/file/d/1-sJlnnZu-nTNTvRtvFVr_y-2_CA5-_Yz/view?usp=sharing) for inference. Please first download and place them in the `example_data` folder.
+We have provided several sets of [example data](https://huggingface.co/fudan-generative-ai/champ/tree/main) for inference. Please first download and place them in the `example_data` folder. 
+
 Here is the command for inference:
 
 ```bash
