@@ -12,4 +12,4 @@ _Updated: 2024-03-27T07:42:51.399Z_
 | :----: | :----------------------------------------------------------------------------------------- | :---: | :-------------: |
 |   ✅   | **[Model and test data on Huggingface](https://huggingface.co/fudan-generative-ai/champ)** | 2 / 2 | Tue Mar 26 2024 |
 |   🚀   | **[Data preprocessing code release]()**                                                    | 0 / 1 | Thu Mar 28 2024 |
-|   🚀   | **[Trainging code release]()**                                                             | 0 / 1 | Mon Apr 01 2024 |
+|   🚀   | **[Training code and dataset release]()**                                                  | 0 / 1 | Mon Apr 01 2024 |
