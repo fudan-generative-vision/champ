@@ -1,4 +1,3 @@
-
 <h1 align='Center'>Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance</h1>
 
 <div align='Center'>
@@ -28,31 +27,37 @@
 https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4926-8440-3db229ebd4aa
 
 # Framework
+
 ![framework](assets/framework.jpg)
 
 # Installation
+
 - System requirement: Ubuntu20.04
 - Tested GPUs: A100, RTX3090
 
-Create conda environment: 
+Create conda environment:
+
 ```bash
   conda create -n champ python=3.10
   conda activate champ
 ```
+
 Install packages with `pip`:
+
 ```bash
   pip install -r requirements.txt
 ```
 
 # Download pretrained models
 
-1. Download pretrained weight of base models: 
-    - [StableDiffusion V1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5)
-    - [sd-vae-ft-mse](https://huggingface.co/stabilityai/sd-vae-ft-mse)
-    - [image_encoder](https://huggingface.co/lambdalabs/sd-image-variations-diffusers/tree/main/image_encoder)
+1. Download pretrained weight of base models:
+
+   - [StableDiffusion V1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5)
+   - [sd-vae-ft-mse](https://huggingface.co/stabilityai/sd-vae-ft-mse)
+   - [image_encoder](https://huggingface.co/lambdalabs/sd-image-variations-diffusers/tree/main/image_encoder)
 
 2. Download our checkpoints: \
-Our [checkpoints](https://drive.google.com/drive/folders/1hZiOHG-qDf0Pj7tvfxC70JQ6wHUvUDoY?usp=sharing) consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
+   Our [checkpoints](https://drive.google.com/drive/folders/1hZiOHG-qDf0Pj7tvfxC70JQ6wHUvUDoY?usp=sharing) consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
 
 Finally, these pretrained models should be organized as follows:
 
@@ -84,25 +89,35 @@ Finally, these pretrained models should be organized as follows:
 ```
 
 # Inference
-We have provided several sets of [example data](https://drive.google.com/file/d/1-sJlnnZu-nTNTvRtvFVr_y-2_CA5-_Yz/view?usp=sharing) for inference. Please first download and place them in the `example_data` folder. 
+
+We have provided several sets of [example data](https://drive.google.com/file/d/1-sJlnnZu-nTNTvRtvFVr_y-2_CA5-_Yz/view?usp=sharing) for inference. Please first download and place them in the `example_data` folder.
 Here is the command for inference:
+
 ```bash
   python inference.py --config configs/inference.yaml
 ```
-Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`. 
+
+Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`.
 
 You can also extract the driving motion from any videos and then render with Blender. We will later provide the instructions and scripts for this.
 
 Note: The default motion-01 in `inference.yaml` has more than 500 frames and takes about 36GB VRAM. If you encounter VRAM issues, consider switching to other example data with less frames.
 
 # Acknowledgements
+
 We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-animate), [Animate Anyone](https://github.com/HumanAIGC/AnimateAnyone), and [AnimateDiff](https://github.com/guoyww/AnimateDiff) for their excellent work. Our project is built upon [Moore-AnimateAnyone](https://github.com/MooreThreads/Moore-AnimateAnyone), and we are grateful for their open-source contributions.
 
+# Roadmap
+
+Visit [our roadmap](https://github.com/fudan-generative-vision/champ/blob/master/docs/ROADMAP.md) to preview the future of Champ.
+
 # Citation
+
 If you find our work useful for your research, please consider citing the paper:
+
 ```
 @misc{zhu2024champ,
-      title={Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance}, 
+      title={Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance},
       author={Shenhao Zhu and Junming Leo Chen and Zuozhuo Dai and Yinghui Xu and Xun Cao and Yao Yao and Hao Zhu and Siyu Zhu},
       year={2024},
       eprint={2403.14781},
@@ -112,10 +127,12 @@ If you find our work useful for your research, please consider citing the paper:
 ```
 
 # Opportunities available
+
 Multiple research positions are open at the **Generative Vision Lab, Fudan University**! Include:
-* Research assistant
-* Postdoctoral researcher
-* PhD candidate
-* Master students
+
+- Research assistant
+- Postdoctoral researcher
+- PhD candidate
+- Master students
 
 Interested individuals are encouraged to contact us at [siyuzhu@fudan.edu.cn](mailto://siyuzhu@fudan.edu.cn) for further information.
