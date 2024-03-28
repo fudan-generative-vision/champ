@@ -1,14 +1,14 @@
 <h1 align='center'>Champ：具有3D參數引導的可控且一致的人像動畫框架</h1>
 
-<div align='center'>
-    <a href='https://github.com/ShenhaoZhu' target='_blank'>朱慎昊</a><sup>*1</sup>&emsp;
-    <a href='https://github.com/Leoooo333' target='_blank'>陳俊明 Leo</a><sup>*2</sup>&emsp;
-    <a href='https://github.com/daizuozhuo' target='_blank'>戴作卓</a><sup>3</sup>&emsp;
-    <a href='https://ai3.fudan.edu.cn/info/1088/1266.htm' target='_blank'>徐影輝</a><sup>2</sup>&emsp;
-    <a href='https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html' target='_blank'>曹迅</a><sup>1</sup>&emsp;
-    <a href='https://yoyo000.github.io/' target='_blank'>姚堯</a><sup>1</sup>&emsp;
-    <a href='http://zhuhao.cc/home/' target='_blank'>朱浩</a><sup>+1</sup>&emsp;
-    <a href='https://sites.google.com/site/zhusiyucs/home' target='_blank'>朱思宇</a><sup>+2</sup>
+<div align='Center'>
+    <a href='https://github.com/ShenhaoZhu' target='_blank'>Shenhao Zhu</a><sup>*1</sup>&emsp;
+    <a href='https://github.com/Leoooo333' target='_blank'>Junming Leo Chen</a><sup>*2</sup>&emsp;
+    <a href='https://github.com/daizuozhuo' target='_blank'>Zuozhuo Dai</a><sup>3</sup>&emsp;
+    <a href='https://ai3.fudan.edu.cn/info/1088/1266.htm' target='_blank'>徐盈煇</a><sup>2</sup>&emsp;
+    <a href='https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html' target='_blank'>Xun Cao</a><sup>1</sup>&emsp;
+    <a href='https://yoyo000.github.io/' target='_blank'>姚遙</a><sup>1</sup>&emsp;
+    <a href='http://zhuhao.cc/home/' target='_blank'>朱昊</a><sup>+1</sup>&emsp;
+    <a href='https://sites.google.com/site/zhusiyucs/home' target='_blank'>Siyu Zhu</a><sup>+2</sup>
 </div>
 <div align='center'>
     <sup>1</sup>南京大學 <sup>2</sup>復旦大學 <sup>3</sup>阿里巴巴集團
@@ -111,7 +111,7 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 # 路線圖
 
-訪問[路線圖](docs/ROADMAP.zh_tw.md)以預覽Champ的未來。
+訪問[路線圖](docs/ROADMAP.zh_TW.md)以預覽Champ的未來。
 
 # 引用
 

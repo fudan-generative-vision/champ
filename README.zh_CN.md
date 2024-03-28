@@ -6,7 +6,7 @@
     <a href='https://github.com/daizuozhuo' target='_blank'>Zuozhuo Dai</a><sup>3</sup>&emsp;
     <a href='https://ai3.fudan.edu.cn/info/1088/1266.htm' target='_blank'>徐盈辉</a><sup>2</sup>&emsp;
     <a href='https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html' target='_blank'>Xun Cao</a><sup>1</sup>&emsp;
-    <a href='https://yoyo000.github.io/' target='_blank'>Yao Yao</a><sup>1</sup>&emsp;
+    <a href='https://yoyo000.github.io/' target='_blank'>姚遥</a><sup>1</sup>&emsp;
     <a href='http://zhuhao.cc/home/' target='_blank'>朱昊</a><sup>+1</sup>&emsp;
     <a href='https://sites.google.com/site/zhusiyucs/home' target='_blank'>Siyu Zhu</a><sup>+2</sup>
 </div>
