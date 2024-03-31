@@ -32,7 +32,7 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 # Installation
 
-- System requirement: Ubuntu20.04
+- System requirement: Ubuntu20.04/Windows 11, Cuda 12.1
 - Tested GPUs: A100, RTX3090
 
 Create conda environment:
@@ -49,6 +49,7 @@ Create conda environment:
 ```
 
 ## Install packages with [poetry](https://python-poetry.org/)
+> If you want to run this project on a Windows device, we strongly recommend to use `poetry`.
 ```shell
 poetry install --no-root
 ```
