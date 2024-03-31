@@ -11,7 +11,7 @@ python = "^3.9"
 accelerate = "0.21.0"
 diffusers = "0.24.0"
 einops = "0.4.1"
-imageio = {extras = ["ffmpeg"], version = "2.33.0"}
+imageio = { extras = ["ffmpeg"], version = "2.33.0" }
 numpy = "1.23.5"
 omegaconf = "2.2.3"
 pillow = "9.5.0"
