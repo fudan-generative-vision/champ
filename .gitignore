@@ -4,3 +4,4 @@ results/
 *.zip
 .vscode/
 .hypothesis/
+__pycache__/
