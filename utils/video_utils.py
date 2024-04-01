@@ -33,6 +33,7 @@ def save_videos_from_pil(pil_images, path, fps=24, crf=23):
     else:
         raise ValueError("Unsupported file type. Use .mp4 or .gif.")
 
+
 def save_videos_grid(videos: torch.Tensor, path: str, rescale=False, n_rows=6, fps=24):
     videos = rearrange(videos, "b c t h w -> t b c h w")
     height, width = videos.shape[-2:]
@@ -52,15 +53,19 @@ def save_videos_grid(videos: torch.Tensor, path: str, rescale=False, n_rows=6, f
 
     save_videos_from_pil(outputs, path, fps)
 
+
 def resize_tensor_frames(video_tensor, new_size):
     B, C, video_length, H, W = video_tensor.shape
     # Reshape video tensor to combine batch and frame dimensions: (B*F, C, H, W)
     video_tensor_reshaped = video_tensor.reshape(-1, C, H, W)
     # Resize using interpolate
-    resized_frames = F.interpolate(video_tensor_reshaped, size=new_size, mode='bilinear', align_corners=False)
+    resized_frames = F.interpolate(
+        video_tensor_reshaped, size=new_size, mode="bilinear", align_corners=False
+    )
     resized_video = resized_frames.reshape(B, C, video_length, new_size[0], new_size[1])
-    
+
     return resized_video
+
 
 def pil_list_to_tensor(image_list, size=None):
     to_tensor = transforms.ToTensor()

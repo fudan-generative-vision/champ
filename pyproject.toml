@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "champ"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+accelerate = "0.21.0"
+diffusers = "0.24.0"
+einops = "0.4.1"
+imageio = { extras = ["ffmpeg"], version = "2.33.0" }
+numpy = "1.23.5"
+omegaconf = "2.2.3"
+pillow = "9.5.0"
+safetensors = "0.4.2"
+tqdm = "4.66.1"
+transformers = "4.30.2"
+torch = {version = "2.2.2", source = "pytorch-cu121"}
+torchvision = {version = "^0.17.2+cu121", source = "pytorch-cu121"}
+xformers = {version = "^0.0.25.post1", source = "pytorch-cu121"}
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.3.0"
+
+
+[[tool.poetry.source]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

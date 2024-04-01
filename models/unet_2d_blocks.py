@@ -311,9 +311,11 @@ class UNetMidBlock2D(nn.Module):
                         rescale_output_factor=output_scale_factor,
                         eps=resnet_eps,
                         norm_num_groups=attn_groups,
-                        spatial_norm_dim=temb_channels
-                        if resnet_time_scale_shift == "spatial"
-                        else None,
+                        spatial_norm_dim=(
+                            temb_channels
+                            if resnet_time_scale_shift == "spatial"
+                            else None
+                        ),
                         residual_connection=True,
                         bias=True,
                         upcast_softmax=True,
