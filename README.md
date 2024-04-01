@@ -32,7 +32,7 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 # Installation
 
-- System requirement: Ubuntu20.04
+- System requirement: Ubuntu20.04/Windows 11, Cuda 12.1
 - Tested GPUs: A100, RTX3090
 
 Create conda environment:
@@ -42,10 +42,16 @@ Create conda environment:
   conda activate champ
 ```
 
-Install packages with `pip`:
+## Install packages with `pip`
 
 ```bash
   pip install -r requirements.txt
+```
+
+## Install packages with [poetry](https://python-poetry.org/)
+> If you want to run this project on a Windows device, we strongly recommend to use `poetry`.
+```shell
+poetry install --no-root
 ```
 
 # Download pretrained models
@@ -97,6 +103,11 @@ Here is the command for inference:
 
 ```bash
   python inference.py --config configs/inference.yaml
+```
+
+If using `poetry`, command is 
+```shell
+poetry run python inference.py --config configs/inference.yaml
 ```
 
 Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`.
