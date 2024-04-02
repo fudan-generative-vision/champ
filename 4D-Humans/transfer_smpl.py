@@ -8,6 +8,10 @@ from tqdm import tqdm
 import pyrender
 from pathlib import Path
 
+if 'PYOPENGL_PLATFORM' not in os.environ:
+    os.environ['PYOPENGL_PLATFORM'] = 'egl'
+from hmr2.models import HMR2, download_models, load_hmr2, DEFAULT_CHECKPOINT
+
 if __name__ == "__main__":
     # Replace 'input_video_path' and 'output_video_path' with the actual paths to your video files
     #input_video_path = 'input_video.mp4'
