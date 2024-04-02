@@ -4,7 +4,6 @@
 /sandbox/
 *.lock
 *.pt
-*.npy
 /example_data/downloaded*
 *.tar
 *.tar.gz
