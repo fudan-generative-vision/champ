@@ -1,0 +1,33 @@
+name: 4D-humans
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - pytorch
+  - pytorch-cuda=11.8
+  - torchvision
+  - pip
+  - pip:
+    - pytorch-lightning
+    - smplx==0.1.28
+    - pyrender
+    - opencv-python
+    - yacs
+    - scikit-image
+    - einops
+    - timm
+    - dill
+    - pandas
+    - git+https://github.com/facebookresearch/detectron2
+    - git+https://github.com/mattloper/chumpy
+
+    # For training
+    - rich
+    - hydra-core
+    - hydra-submitit-launcher
+    - hydra-colorlog
+    - pyrootutils
+    - webdataset

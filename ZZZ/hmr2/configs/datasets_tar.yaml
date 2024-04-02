@@ -1,0 +1,38 @@
+MPI-INF-TRAIN-PRUNED:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/mpi-inf-train-pruned/{000000..00006}.tar
+    epoch_size: 12_000
+H36M-TRAIN-WMASK:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/h36m-train/{000000..000312}.tar
+    epoch_size: 314_000 # Can be changed arbitrarily. Enables resampling. 
+MPII-TRAIN-WMASK:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/mpii-train/{000000..000009}.tar
+    epoch_size: 100_000 # Increase to ensure dataset doesn't end before epoch
+COCO-TRAIN-2014-WMASK-PRUNED:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/coco-train-2014-pruned/{000000..000017}.tar
+    epoch_size: 18_000
+AVA-TRAIN-MIDFRAMES-1FPS-WMASK:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/ava-train-midframes-1fps-vitpose/{000000..000092}.tar
+    epoch_size: 200_000
+AIC-TRAIN-WMASK:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/aic-train-vitpose/{000000..000104}.tar
+    epoch_size: 200_000
+INSTA-TRAIN-WMASK:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/insta-train-vitpose-replicate/{000000..003657}.tar
+    epoch_size: 4_000_000
+COCO-TRAIN-2014-VITPOSE-REPLICATE-PRUNED12:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/coco-train-2014-vitpose-pruned/{000000..000044}.tar
+    epoch_size: 45_000
+COCO-VAL:
+    TYPE: ImageDataset
+    URLS: hmr2_training_data/dataset_tars/coco-val/{000000..000000}.tar
+    KEYPOINT_LIST: [0] # Dummy
+CMU-MOCAP:
+    DATASET_FILE: hmr2_training_data/cmu_mocap.npz

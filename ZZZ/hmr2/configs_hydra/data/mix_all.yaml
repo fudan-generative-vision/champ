@@ -1,0 +1,27 @@
+# @package _global_
+defaults:
+  - /data_filtering: low1
+
+DATASETS:
+  TRAIN: 
+    H36M-TRAIN-WMASK:
+      WEIGHT: 0.1
+    MPII-TRAIN-WMASK:
+      WEIGHT: 0.1
+    COCO-TRAIN-2014-WMASK-PRUNED:
+      WEIGHT: 0.1
+    COCO-TRAIN-2014-VITPOSE-REPLICATE-PRUNED12:
+      WEIGHT: 0.1
+    MPI-INF-TRAIN-PRUNED:
+      WEIGHT: 0.02
+    AVA-TRAIN-MIDFRAMES-1FPS-WMASK:
+      WEIGHT: 0.19
+    AIC-TRAIN-WMASK:
+      WEIGHT: 0.19
+    INSTA-TRAIN-WMASK:
+      WEIGHT: 0.2
+  VAL:
+    COCO-VAL:
+      WEIGHT: 1.0
+
+  MOCAP: CMU-MOCAP
