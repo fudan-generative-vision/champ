@@ -45,6 +45,12 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 - System requirement: Ubuntu20.04/Windows 11, Cuda 12.1
 - Tested GPUs: A100, RTX3090
 
+Git clone Champ with following command:
+```bash
+  git clone --recurse-submodules https://github.com/fudan-generative-vision/champ
+```
+
+
 Create conda environment:
 
 ```bash
@@ -65,7 +71,7 @@ poetry install --no-root
 ```
 ## Install 4D-Humans
 
-Champ use the great work [4D-Humans](https://github.com/Leoooo333/4D-Humans) to fit SMPL on inputs. Please follow their instructions to set it up. Notte that we have a fork in `Champ/4D-Humans`, so you don't need to clone the original repository.
+Champ use the great work [4D-Humans](https://github.com/shubham-goel/4D-Humans) to fit SMPL on inputs. Please follow their instructions `Installation` to set it up and `Run demo on images` to download checkpoints. Note that we have a fork in `Champ/4D-Humans`, so you don't need to clone the original repository.
 
 # 💾 Download pretrained models
 
@@ -187,7 +193,7 @@ Once finished, you can check `reference_imgs/visualized_imgs` to see the overlay
 Replace with **absolute path** in following command:
 
 ```shell
-python transfer_smpl.py --reference_path test_smpl/reference_imgs/images/ref.png --driving_path test_smpl/driving_videos/Video_1 --output_folder test_smpl/transfer_result --figure_transfer --view_transfer
+python transfer_smpl.py --reference_path test_smpl/reference_imgs/smpl_results/ref.npy --driving_path test_smpl/driving_videos/Video_1 --output_folder test_smpl/transfer_result --figure_transfer --view_transfer
 ```
 
 Append `--figure_transfer` when you want the result matches the reference SMPL's figure, and `--view_transfer` to transform the driving SMPL onto reference image's camera space.
