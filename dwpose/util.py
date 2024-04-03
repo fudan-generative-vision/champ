@@ -1,9 +1,9 @@
 # https://github.com/IDEA-Research/DWPose
 import math
-import numpy as np
-import matplotlib
-import cv2
 
+import cv2
+import matplotlib
+import numpy as np
 
 eps = 0.01
 

@@ -1,16 +1,16 @@
+from dataclasses import dataclass
 from typing import Tuple
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as init
-
 from diffusers.models.modeling_utils import ModelMixin
 from diffusers.utils import BaseOutput
-from dataclasses import dataclass
 
+from models.attention import TemporalBasicTransformerBlock
 from models.motion_module import zero_module
 from models.resnet import InflatedConv3d, InflatedGroupNorm
-from models.attention import TemporalBasicTransformerBlock
 from models.transformer_3d import Transformer3DModel
 
 
