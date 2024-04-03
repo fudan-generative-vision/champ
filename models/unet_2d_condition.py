@@ -519,9 +519,11 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
                 resnet_skip_time_act=resnet_skip_time_act,
                 resnet_out_scale_factor=resnet_out_scale_factor,
                 cross_attention_norm=cross_attention_norm,
-                attention_head_dim=attention_head_dim[i]
-                if attention_head_dim[i] is not None
-                else output_channel,
+                attention_head_dim=(
+                    attention_head_dim[i]
+                    if attention_head_dim[i] is not None
+                    else output_channel
+                ),
                 dropout=dropout,
             )
             self.down_blocks.append(down_block)
@@ -621,9 +623,11 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
                 resnet_skip_time_act=resnet_skip_time_act,
                 resnet_out_scale_factor=resnet_out_scale_factor,
                 cross_attention_norm=cross_attention_norm,
-                attention_head_dim=attention_head_dim[i]
-                if attention_head_dim[i] is not None
-                else output_channel,
+                attention_head_dim=(
+                    attention_head_dim[i]
+                    if attention_head_dim[i] is not None
+                    else output_channel
+                ),
                 dropout=dropout,
             )
             self.up_blocks.append(up_block)
@@ -1190,9 +1194,9 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
                 # For t2i-adapter CrossAttnDownBlock2D
                 additional_residuals = {}
                 if is_adapter and len(down_intrablock_additional_residuals) > 0:
-                    additional_residuals[
-                        "additional_residuals"
-                    ] = down_intrablock_additional_residuals.pop(0)
+                    additional_residuals["additional_residuals"] = (
+                        down_intrablock_additional_residuals.pop(0)
+                    )
 
                 sample, res_samples = downsample_block(
                     hidden_states=sample,

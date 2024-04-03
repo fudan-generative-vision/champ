@@ -1,6 +1,3 @@
-__pycache__/
-*.py[cod]
-*$py.class
 pretrained_models/
 example_data/
 results/
@@ -9,3 +6,4 @@ results/
 .hypothesis/
 huggingface/
 venv/
+__pycache__/

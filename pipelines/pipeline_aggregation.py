@@ -452,13 +452,19 @@ class MultiGuidance2LongVideoPipeline(DiffusionPipeline):
         # pose_fea_normal = self.guidance_encoder_normal(pose_cond_tensor_tuple[1])
         # pose_fea_semantic_map = self.guidance_encoder_semantic_map(pose_cond_tensor_tuple[2])
         # pose_fea_dwpose = self.guidance_encoder_dwpose(pose_cond_tensor_tuple[3])
-        
+
         guidance_fea_lst = []
         for guidance_type, guidance_pil_lst in multi_guidance_group.items():
-            guidance_tensor_lst = [torch.from_numpy(np.array(guidance_image.resize((width, height)))) / 255.0 for guidance_image in guidance_pil_lst]
-            guidance_tensor = torch.stack(guidance_tensor_lst, dim=0).permute(3, 0, 1, 2)  # (c, f, h, w)
+            guidance_tensor_lst = [
+                torch.from_numpy(np.array(guidance_image.resize((width, height))))
+                / 255.0
+                for guidance_image in guidance_pil_lst
+            ]
+            guidance_tensor = torch.stack(guidance_tensor_lst, dim=0).permute(
+                3, 0, 1, 2
+            )  # (c, f, h, w)
             guidance_tensor = guidance_tensor.unsqueeze(0)  # (1, c, f, h, w)
-            
+
             guidance_encoder = getattr(self, f"guidance_encoder_{guidance_type}")
             guidance_tensor = guidance_tensor.to(device, guidance_encoder.dtype)
             guidance_fea_lst += [guidance_encoder(guidance_tensor)]
@@ -590,5 +596,5 @@ class MultiGuidance2LongVideoPipeline(DiffusionPipeline):
 
         if not return_dict:
             return images
-        
+
         return MultiGuidance2VideoPipelineOutput(videos=images)
