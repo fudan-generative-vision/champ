@@ -34,7 +34,9 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 # 🔥News
 
 - **`2024/04/02`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now.💃🤸‍♂️🕺
+  
 - **`2024/03/30`**:🚀🚀🚀Watch this amazing [video tutorial](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A)🚀🚀🚀 from [Toy](https://twitter.com/toyxyz3). It's based on the unofficial easy [Champ ComfyUI ](https://github.com/kijai/ComfyUI-champWrapper?tab=readme-ov-file)without SMPL from [Kijai](https://github.com/kijai)🥳.
+  
 - **`2024/03/27`**: Cool Demo on [replicate](https://replicate.com/camenduru/champ)🌟, Thanks [camenduru](https://github.com/camenduru)!👏
 
 # ComfyUI tutorial
