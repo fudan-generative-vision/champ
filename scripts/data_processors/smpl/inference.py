@@ -64,11 +64,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--reference_imgs_folder",
         type=str,
-        default="reference_imgs",
+        default="",
         help="Folder path to reference imgs",
     )
     parser.add_argument(
-        "--driving_videos_folder",
+        "--driving_video_path",
         type=str,
         default="driving_videos",
         help="Folder path to driving videos",
@@ -82,21 +82,27 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    os.makedirs(args.reference_imgs_folder, exist_ok=True)
-    os.makedirs(
-        os.path.join(args.reference_imgs_folder, "visualized_imgs"), exist_ok=True
-    )
-    os.makedirs(os.path.join(args.reference_imgs_folder, "mask"), exist_ok=True)
-    os.makedirs(os.path.join(args.reference_imgs_folder, "semantic_map"), exist_ok=True)
-    os.makedirs(os.path.join(args.reference_imgs_folder, "depth"), exist_ok=True)
-    os.makedirs(os.path.join(args.reference_imgs_folder, "smpl_results"), exist_ok=True)
+    reference_img_paths = []
+    if args.reference_imgs_folder:
+        os.makedirs(args.reference_imgs_folder, exist_ok=True)
+        os.makedirs(
+            os.path.join(args.reference_imgs_folder, "visualized_imgs"), exist_ok=True
+        )
+        os.makedirs(os.path.join(args.reference_imgs_folder, "mask"), exist_ok=True)
+        os.makedirs(
+            os.path.join(args.reference_imgs_folder, "semantic_map"), exist_ok=True
+        )
+        os.makedirs(os.path.join(args.reference_imgs_folder, "depth"), exist_ok=True)
+        os.makedirs(
+            os.path.join(args.reference_imgs_folder, "smpl_results"), exist_ok=True
+        )
 
-    reference_img_paths = [
-        path for path in os.listdir(os.path.join(args.reference_imgs_folder, "images"))
-    ]
-    driving_videos_paths = [
-        path for path in os.listdir(os.path.join(args.driving_videos_folder))
-    ]
+        reference_img_paths = [
+            path
+            for path in os.listdir(os.path.join(args.reference_imgs_folder, "images"))
+        ]
+
+    driving_videos_paths = [args.driving_video_path]
 
     model, model_cfg = load_hmr2(HMR2_DEFAULT_CKPT)
 
@@ -244,12 +250,7 @@ if __name__ == "__main__":
                 results_dict_for_rendering,
             )
     for video_path in tqdm(driving_videos_paths, desc="Processing Driving Videos:"):
-        video_path = os.path.join(args.driving_videos_folder, video_path)
         os.makedirs(video_path, exist_ok=True)
-        # os.makedirs(os.path.join(video_path, "visualized_imgs"), exist_ok=True)
-        # os.makedirs(os.path.join(video_path, "mask"), exist_ok=True)
-        # os.makedirs(os.path.join(video_path, "semantic_map"), exist_ok=True)
-        # os.makedirs(os.path.join(video_path, "depth"), exist_ok=True)
         os.makedirs(os.path.join(video_path, "smpl_results"), exist_ok=True)
 
         driving_img_paths = [
@@ -261,10 +262,6 @@ if __name__ == "__main__":
         for img_path in tqdm(driving_img_paths):
             img_cv2 = cv2.imread(str(os.path.join(video_path, "images", img_path)))
 
-            # renderer.renderer.delete()
-            # renderer.renderer = pyrender.OffscreenRenderer(viewport_width=img_cv2.shape[:2][::-1][0],
-            #                                         viewport_height=img_cv2.shape[:2][::-1][1],
-            #                                         point_size=1.0)
             img_fn, _ = os.path.splitext(os.path.basename(img_path))
 
             # Detect humans in image
