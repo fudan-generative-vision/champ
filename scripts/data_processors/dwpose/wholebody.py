@@ -8,7 +8,7 @@ import onnxruntime as ort
 from .onnxdet import inference_detector
 from .onnxpose import inference_pose
 
-ModelDataPathPrefix = Path("./pretrained_models")
+from scripts.pretrained_models import YOLO_L_MODEL_PATH, DWPOSE_MODEL_PATH
 
 
 class Wholebody:
@@ -16,8 +16,9 @@ class Wholebody:
         providers = (
             ["CPUExecutionProvider"] if device == "cpu" else ["CUDAExecutionProvider"]
         )
-        onnx_det = ModelDataPathPrefix.joinpath("DWPose/yolox_l.onnx")
-        onnx_pose = ModelDataPathPrefix.joinpath("DWPose/dw-ll_ucoco_384.onnx")
+
+        onnx_det = YOLO_L_MODEL_PATH
+        onnx_pose = DWPOSE_MODEL_PATH
 
         self.session_det = ort.InferenceSession(
             path_or_bytes=onnx_det, providers=providers

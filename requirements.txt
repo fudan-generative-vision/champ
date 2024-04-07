@@ -9,7 +9,7 @@ numpy==1.23.5
 omegaconf==2.2.3
 Pillow==9.5.0
 safetensors==0.4.2
-onnxruntime-gpu==1.17.1
+onnxruntime-gpu==1.13.1
 open-clip-torch==2.20.0
 opencv-contrib-python-headless==4.8.1.78
 opencv-python-headless==4.8.1.78

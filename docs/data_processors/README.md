@@ -28,3 +28,8 @@ blender render
 ```shell
 blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render.py --driving_path driving_videos/Video_1/smpl_results --reference_path example_data/test_imgs/images/ref-01.png
 ```
+
+dwpose
+```shell
+python -m scripts.data_processors.dwpose.inference --input /home/leeway/workspace/champ/github/driving_videos/Video_1/images --cpu True --output ./results/dwpose
+```

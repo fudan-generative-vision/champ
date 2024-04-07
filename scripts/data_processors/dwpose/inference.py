@@ -57,14 +57,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--output", type=str, default="./dwpose", help="Specify output directory"
     )
-    parser.add_argument("--device", type=int, default=0, help="GPU device ID")
+    parser.add_argument("--gpu", type=int, default=0, help="GPU device ID")
+    parser.add_argument("--cpu", type=bool, default=False, help="Use CPU")
     args = parser.parse_args()
     image_paths = []
 
     imgs_path = Path(args.input)
     if os.path.isdir(imgs_path):
         for file_path in traverse_folder(imgs_path):
-            print(file_path)
             if file_path.is_file() and file_path.suffix in [".jpg", ".png", ".jpeg"]:
                 image_paths.append(file_path)
     elif imgs_path.suffix in [".jpg", ".png", ".jpeg"]:
@@ -74,9 +74,13 @@ if __name__ == "__main__":
             f"--imgs_path need a image file path or a folder include images"
         )
 
-    gpu_id = args.device
+    gpu_id = args.gpu
+    cpu_enabled = args.cpu
     detector = DWposeDetector()
-    detector = detector.to(f"cuda:{gpu_id}")
+    if cpu_enabled:
+        detector = detector.to(f"cpu")
+    else:
+        detector = detector.to(f"cuda:{gpu_id}")
 
     output_dir = Path(args.output)
     if not os.path.exists(output_dir):
