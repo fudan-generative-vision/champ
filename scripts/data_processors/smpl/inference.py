@@ -19,7 +19,7 @@ from hmr2.models import load_hmr2
 from hmr2.utils import recursive_to
 from hmr2.datasets.vitdet_dataset import ViTDetDataset
 from hmr2.utils.renderer import Renderer, cam_crop_to_full
-from scripts.data_processors.semantic_renderer import SemanticRenderer
+from .semantic_renderer import SemanticRenderer
 
 LIGHT_BLUE = (0.65098039, 0.74117647, 0.85882353)
 

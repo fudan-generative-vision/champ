@@ -15,9 +15,7 @@ from contextlib import contextmanager
 import pathlib
 
 this_script_path = pathlib.Path(__file__).parent.resolve()
-W_FACE_AND_COLOR_FILE = (
-    this_script_path.parent.parent / "assets/blend/smpl_mesh_info.npy"
-)
+W_FACE_AND_COLOR_FILE = this_script_path / "blend/smpl_mesh_info.npy"
 
 FORMAT_LDR = "PNG"
 COLOR_DEPTH_LDR = 8
