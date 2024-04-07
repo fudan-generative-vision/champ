@@ -15,11 +15,16 @@ python -m scripts.pretrained_models.download --all true
 
 inference_smpl
 ```shell
-python -m scripts.data_processors.inference_smpl --reference_imgs_folder example_data/test_imgs --driving_videos_folder driving_videos --device 0
+python -m scripts.data_processors.smpl.inference --reference_imgs_folder example_data/test_imgs --driving_videos_folder driving_videos --device 0
 
 ```
 
 transfer_smpl
 ```shell
-python -m scripts.data_processors.transfer_smpl --reference_path example_data/test_imgs/smpl_results/ref-01.npy --driving_path driving_videos/Video_1 --output_folder results/smpl/transfered --figure_transfer --view_transfer
+python -m scripts.data_processors.smpl.transfer --reference_path example_data/test_imgs/smpl_results/ref-01.npy --driving_path driving_videos/Video_1 --output_folder results/smpl/transfered --figure_transfer --view_transfer
+```
+
+blender render
+```shell
+blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render.py --driving_path driving_videos/Video_1/smpl_results --reference_path example_data/test_imgs/images/ref-01.png
 ```
