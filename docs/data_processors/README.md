@@ -3,8 +3,10 @@
 
 2. conda install -c conda-forge gcc gxx
 
-2. pip install -r requirements.txt
+3. pip install -r requirements.txt
 
-3. download smpl model https://smplify.is.tue.mpg.de/ and place it at {CACHE_DIR_4DHUMANS}/data/smpl/SMPL_NEUTRAL.pkl
-
-4. download detectron2 model https://dl.fbaipublicfiles.com/detectron2/ViTDet/COCO/cascade_mask_rcnn_vitdet_h/f328730692/model_final_f05665.pkl
+4. download models
+```shell
+python -m scripts.pretrained_models.download --all true
+```
+> you need to download smpl model manually from https://smplify.is.tue.mpg.de/ and place it at pretrain_models/smpl/SMPL_NEUTRAL.pkl
