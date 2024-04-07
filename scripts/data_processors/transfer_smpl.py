@@ -85,11 +85,12 @@ if __name__ == "__main__":
         driving_paths = [
             os.path.join(driving_folder, "smpl_results", path) for path in driving_paths
         ]
+        print(driving_paths)
     if not have_smpl_results:
         print("No SMPLS found in driving folder.")
     else:
 
-        referece_dict = np.load(str(reference_file), allow_pickle=True).item()
+        reference_dict = np.load(str(reference_file), allow_pickle=True).item()
         reference_path = Path(str(reference_file))
         reference_img = cv2.imread(
             os.path.join(
@@ -99,8 +100,6 @@ if __name__ == "__main__":
             )
         )
 
-        # print(driving_folder)
-        # print(driving_paths)
         smooth_smpl_path = os.path.join(
             driving_folder, "smpl_results", "smpls_group.npz"
         )
@@ -116,12 +115,12 @@ if __name__ == "__main__":
                 result_dict["smpls"] = smpl_outs
                 result_dict["cam_t"] = cam_t
                 if args.view_transfer:
-                    scaled_focal_length = referece_dict["scaled_focal_length"]
-                    result_dict["cam_t"] = referece_dict["cam_t"]
+                    scaled_focal_length = reference_dict["scaled_focal_length"]
+                    result_dict["cam_t"] = reference_dict["cam_t"]
                     result_dict["scaled_focal_length"] = scaled_focal_length
                 # transfer reference SMPL shape to driving SMPLs
                 if args.figure_transfer:
-                    result_dict["smpls"]["betas"] = referece_dict["smpls"]["betas"]
+                    result_dict["smpls"]["betas"] = reference_dict["smpls"]["betas"]
 
                 smpl_output = model.smpl(
                     **{
@@ -134,7 +133,7 @@ if __name__ == "__main__":
                 result_dict["verts"][0] = (
                     pred_vertices.reshape(-1, 3).detach().cpu().numpy()
                 )
-                result_dict["render_res"] = referece_dict["render_res"]
+                result_dict["render_res"] = reference_dict["render_res"]
                 if i == 0:
                     cv2.imwrite(
                         os.path.join(

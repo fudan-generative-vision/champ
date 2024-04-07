@@ -1,4 +1,5 @@
 accelerate==0.21.0
+bpy
 controlnet-aux==0.0.7
 diffusers==0.24.0
 einops==0.4.1
