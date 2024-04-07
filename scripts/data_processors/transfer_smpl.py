@@ -100,9 +100,7 @@ if __name__ == "__main__":
             )
         )
 
-        smooth_smpl_path = os.path.join(
-            driving_folder, "smpl_results", "smpls_group.npz"
-        )
+        smooth_smpl_path = os.path.join(driving_folder, "smpls_group.npz")
         if os.path.exists(smooth_smpl_path):
             result_dict_list = np.load(smooth_smpl_path, allow_pickle=True)
             result_dict_first = np.load(driving_paths[0], allow_pickle=True).item()

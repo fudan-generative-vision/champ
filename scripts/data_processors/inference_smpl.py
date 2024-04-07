@@ -352,7 +352,7 @@ if __name__ == "__main__":
                     results_dict_for_rendering,
                 )
         np.savez(
-            str(os.path.join(video_path, "smpl_results", f"smpls_group.npz")),
+            str(os.path.join(video_path, f"smpls_group.npz")),
             smpl=smpls,
             camera=cams,
         )
