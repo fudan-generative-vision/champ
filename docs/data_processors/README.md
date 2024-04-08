@@ -1,4 +1,4 @@
-# How to produce Motion
+# 💃 SMPL & Rendering
 
 Try Champ with your dance videos! It may take time to setup the environment, follow the instruction step by step🐢, report issue when necessary.
 
@@ -82,24 +82,34 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 2. Inference SMPL
 
     Make sure you have splitted the video into frames and organized the image files as below:
-    ```
-    |--video_folder
-        |--images
-            |--0001.png
-            |--0002.png
-            |--0003.png
-            |--0004.png
-            |--0005.png
-            ......
+    ```shell
+    |-- driving_videos
+        |-- your_video_1
+            |-- images
+                |-- 0000.png
+                    ...
+                |-- 0020.png
+                    ...
+        |-- your_video_2
+            |-- images
+                |-- 0000.png
+                    ...
+        ...
+
+    |-- reference_imgs
+        |-- images
+            |-- your_ref_img_A.png
+            |-- your_ref_img_B.png
+                    ...
     ```
 
     Then run smpl inference script to produce smpl:
 
     ```shell
-    python -m scripts.data_processors.smpl.inference --driving_video_path driving_videos/Video_1 --device 0
+    python -m scripts.data_processors.smpl.inference --reference_imgs_folder reference_imgs --driving_video_path driving_videos/your_video_1 --device YOUR_GPU_ID
     ```
 
-    All SMPL results will appear under `driving_videos/Video_1`.
+    Once finished, you can check `reference_imgs/visualized_imgs` to see the overlay results. To better fit some extreme figures, you may also append `--figure_scale ` to manually change the figure(or shape) of predicted SMPL, from `-10`(extreme fat) to `10`(extreme slim).
 
 
 3. Smooth SMPL (optional)
@@ -109,18 +119,24 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 4. Transfer SMPL
 
     ```shell
-    python -m scripts.data_processors.smpl.transfer --reference_path example_data/test_imgs/smpl_results/ref-01.npy --driving_path driving_videos/Video_1 --output_folder results/smpl/transfered --figure_transfer --view_transfer
-
+    python -m scripts.data_processors.smpl.transfer --reference_path reference_imgs/smpl_results/your_ref_img_A.npy --driving_path driving_videos/your_video_1 --output_folder transferd_result --figure_transfer --view_transfer
     ```
+
+    Append `--figure_transfer` when you want the result matches the reference SMPL's figure, and `--view_transfer` to transform the driving SMPL onto reference image's camera space.
+
 
 5. Render SMPL via Blender
 
     ```shell
-    blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render.py --driving_path driving_videos/Video_1/smpl_results --reference_path example_data/test_imgs/images/ref-01.png
+    blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render.py --driving_path transferd_result/smpl_results --reference_path reference_imgs/images/your_ref_img_A.npy
     ```
+
+    This will rendering in CPU on default. Append `--device YOUR_GPU_ID` to select a GPU for rendering. 
 
 6. Inference DWPose
 
     ```shell
-    python -m scripts.data_processors.dwpose.inference --input /home/leeway/workspace/champ/github/driving_videos/Video_1/images --cpu True --output ./driving_videos/Video_1/dwpose
+    python -m scripts.data_processors.dwpose.inference --input transferd_result --cpu True
     ```
+
+Now, the `transferd_result` is prepared to be used in Champ🥳!
