@@ -23,43 +23,8 @@ from .semantic_renderer import SemanticRenderer
 
 LIGHT_BLUE = (0.65098039, 0.74117647, 0.85882353)
 
-
-def process_frame(frame):
-    # Replace this function with your processing logic
-    # For demonstration purposes, we'll just resize the frame
-    processed_frame = cv2.resize(frame, (640, 480))  # Resize to 640x480
-    return processed_frame
-
-
-def process_video(input_video_path, output_video_path):
-    # Open the video file
-    cap = cv2.VideoCapture(input_video_path)
-
-    # Get the video properties
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-    # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # You can use other codecs as well
-    out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
-
-    # Process each frame of the video
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        # Process the frame
-        processed_frame = process_frame(frame)
-        # Write the processed frame to the output video
-        out.write(processed_frame)
-    # Release the video capture and writer objects
-    cap.release()
-    out.release()
-
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="HMR2 demo code")
+    parser = argparse.ArgumentParser(description="Inference SMPL with 4D-Humans")
     parser.add_argument("--device", type=int, default=0, help="GPU device ID")
     parser.add_argument(
         "--reference_imgs_folder",
@@ -349,7 +314,7 @@ if __name__ == "__main__":
                     results_dict_for_rendering,
                 )
         np.savez(
-            str(os.path.join(video_path, f"smpls_group.npz")),
+            str(os.path.join(video_path, "smpl_results", f"smpls_group.npz")),
             smpl=smpls,
             camera=cams,
         )
