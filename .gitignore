@@ -1,7 +1,8 @@
-pretrained_models/
+/pretrained_models/
 example_data/
 results/
 *.zip
 .vscode/
 .hypothesis/
 __pycache__/
+driving_videos/

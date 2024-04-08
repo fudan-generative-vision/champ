@@ -8,22 +8,20 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.utils.checkpoint
-from torchvision import transforms
 from diffusers import AutoencoderKL, DDIMScheduler
 from diffusers.utils.import_utils import is_xformers_available
 from omegaconf import OmegaConf
 from PIL import Image
+from torchvision import transforms
 from transformers import CLIPVisionModelWithProjection
 
+from models.champ_model import ChampModel
+from models.guidance_encoder import GuidanceEncoder
+from models.mutual_self_attention import ReferenceAttentionControl
 from models.unet_2d_condition import UNet2DConditionModel
 from models.unet_3d import UNet3DConditionModel
-from models.mutual_self_attention import ReferenceAttentionControl
-from models.guidance_encoder import GuidanceEncoder
-from models.champ_model import ChampModel
-
 from pipelines.pipeline_aggregation import MultiGuidance2LongVideoPipeline
-
-from utils.video_utils import resize_tensor_frames, save_videos_grid, pil_list_to_tensor
+from utils.video_utils import pil_list_to_tensor, resize_tensor_frames, save_videos_grid
 
 
 def setup_savedir(cfg):
