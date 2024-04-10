@@ -116,6 +116,10 @@ You can also extract the driving motion from any videos and then render with Ble
 
 Note: The default motion-01 in `inference.yaml` has more than 500 frames and takes about 36GB VRAM. If you encounter VRAM issues, consider switching to other example data with less frames.
 
+# SMPL & Rendering
+
+Try Champ with your dance videos! It may take time to setup the environment, follow the instruction step by step🐢, report issue when necessary. See our [instructions on data preparation](https://github.com/fudan-generative-vision/champ/tree/master/docs/data_process.md) here.
+
 # ComfyUI tutorial
 
 Champ ComfyUI tutorial see [here](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A)!
