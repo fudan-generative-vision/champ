@@ -5,6 +5,7 @@ description = ""
 authors = ["Your Name <you@example.com>"]
 license = "Apache-2.0"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -24,7 +25,8 @@ xformers = {version = "^0.0.25.post1", source = "pytorch-cu121"}
 
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.3.0"
+isort = "^5.13.2"
+pylint = "^3.1.0"
 
 
 [[tool.poetry.source]]
