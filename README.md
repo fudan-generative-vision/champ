@@ -30,6 +30,16 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 ![framework](assets/framework.jpg)
 
+# News
+
+- **`2024/04/12`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now💃🤸‍♂️🕺. See [docs](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
+  
+- **`2024/03/30`**: 🚀🚀🚀Watch this amazing [video tutorial](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A). It's based on the **unofficial**(unstable) [Champ ComfyUI](https://github.com/kijai/ComfyUI-champWrapper?tab=readme-ov-file)🥳.
+  
+- **`2024/03/27`**: Cool Demo on [replicate](https://replicate.com/camenduru/champ)🌟, Thanks [camenduru](https://github.com/camenduru)!👏
+
+- **`2024/03/27`**: Visit our [roadmap🕒](https://github.com/fudan-generative-vision/champ/blob/master/docs/ROADMAP.md) to preview the future of Champ.
+
 # Installation
 
 - System requirement: Ubuntu20.04/Windows 11, Cuda 12.1
