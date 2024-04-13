@@ -3,7 +3,8 @@ width: 512
 height: 512
 data:
   ref_image_path: 'example_data/ref_images/ref-02.png'  # reference image path
-  guidance_data_folder: 'example_data/motions/motion-02'  # corrsponding motion sequence folder
+  guidance_data_folder: 'example_data/motions/motion-02'  # corresponding motion sequence folder
+  frame_range: [0, 100]  # [Optional] specify a frame range: [min_frame_idx, max_frame_idx] to select a clip from a motion sequence  
 seed: 42
 
 base_model_path: 'pretrained_models/stable-diffusion-v1-5'
