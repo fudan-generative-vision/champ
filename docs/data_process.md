@@ -45,24 +45,24 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 
 1. [DWPose for controlnet](https://github.com/IDEA-Research/DWPose?tab=readme-ov-file#-dwpose-for-controlnet)
 
-    First, you need to download our Pose model dw-ll_ucoco_384.onnx ([baidu](https://pan.baidu.com/s/1nuBjw-KKSxD_BkpmwXUJiw?pwd=28d7), [google](https://drive.google.com/file/d/12L8E2oAgZy4VACGSK9RaZBZrfgx7VTA2/view?usp=sharing)) and Det model yolox_l.onnx ([baidu](https://pan.baidu.com/s/1fpfIVpv5ypo4c1bUlzkMYQ?pwd=mjdn), [google](https://drive.google.com/file/d/1w9pXC8tT0p9ndMN-CArp1__b2GbzewWI/view)), then put them into `Champ/annotator/ckpts/`.
+    First, you need to download our Pose model dw-ll_ucoco_384.onnx ([baidu](https://pan.baidu.com/s/1nuBjw-KKSxD_BkpmwXUJiw?pwd=28d7), [google](https://drive.google.com/file/d/12L8E2oAgZy4VACGSK9RaZBZrfgx7VTA2/view?usp=sharing)) and Det model yolox_l.onnx ([baidu](https://pan.baidu.com/s/1fpfIVpv5ypo4c1bUlzkMYQ?pwd=mjdn), [google](https://drive.google.com/file/d/1w9pXC8tT0p9ndMN-CArp1__b2GbzewWI/view)), then put them into `${PROJECT_ROOT}/annotator/ckpts/`.
 
 
 2. HMR2 checkpoints
 
     ```shell
-    python -m scripts.pretrained_models.download --hmr2 true
+    python -m scripts.pretrained_models.download --hmr2
     ```
 3. Detectron2 model
 
     ```shell
-    python -m scripts.pretrained_models.download --detectron2 true
+    python -m scripts.pretrained_models.download --detectron2
     ```
 4. SMPL model
     You also need to download the SMPL model.
     ```shell
     wget https://github.com/classner/up/raw/master/models/3D/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl
-    mkdir 4D-Humans/data/
+    mkdir -p 4D-Humans/data/
     mv basicModel_neutral_lbs_10_207_0_v1.0.0.pkl 4D-Humans/data/
     ```
 

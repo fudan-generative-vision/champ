@@ -73,9 +73,16 @@ def combine_guidance_data(cfg):
     guidance_pil_group = dict()
     for guidance_type in guidance_types:
         guidance_pil_group[guidance_type] = []
-        for guidance_image_path in sorted(
+        guidance_image_lst = sorted(
             Path(osp.join(guidance_data_folder, guidance_type)).iterdir()
-        ):
+        )
+        guidance_image_lst = (
+            guidance_image_lst
+            if not cfg.data.frame_range
+            else guidance_image_lst[cfg.data.frame_range[0], cfg.data.frame_range[1]]
+        )
+
+        for guidance_image_path in guidance_image_lst:
             # Add black background to semantic map
             if guidance_type == "semantic_map":
                 guidance_pil_group[guidance_type] += [

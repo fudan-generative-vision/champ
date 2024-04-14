@@ -6,7 +6,6 @@ from scripts.pretrained_models import (
     DETECTRON2_MODEL_DIR,
     DETECTRON2_MODEL_PATH,
     HMR2_MODELS_DIR,
-    PRETRAIN_MODELS_DIR,
     SMPL_MODEL_DIR,
     SMPL_MODEL_PATH,
 )

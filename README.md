@@ -112,19 +112,21 @@ We have provided several sets of [example data](https://huggingface.co/fudan-gen
 Here is the command for inference:
 
 ```bash
-  python inference.py --config configs/inference.yaml
+  python inference.py --config configs/inference/inference.yaml
 ```
 
 If using `poetry`, command is 
 ```shell
-poetry run python inference.py --config configs/inference.yaml
+poetry run python inference.py --config configs/inference/inference.yaml
 ```
 
 Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`.
 
 You can also extract the driving motion from any videos and then render with Blender. We will later provide the instructions and scripts for this.
 
-Note: The default motion-01 in `inference.yaml` has more than 500 frames and takes about 36GB VRAM. If you encounter VRAM issues, consider switching to other example data with less frames.
+The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB VRAM.
+
+**Note**: If your VRAM is insufficient, you can switch to a shorter motion sequence or cut out a segment from a long sequence. We provide a frame range selector in `inference.yaml`, which you can replace with a list of `[min_frame_index, max_frame_index]` to conveniently cut out a segment from the sequence.
 
 # SMPL & Rendering
 
