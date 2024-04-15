@@ -79,7 +79,7 @@ def combine_guidance_data(cfg):
         guidance_image_lst = (
             guidance_image_lst
             if not cfg.data.frame_range
-            else guidance_image_lst[cfg.data.frame_range[0], cfg.data.frame_range[1]]
+            else guidance_image_lst[cfg.data.frame_range[0]:cfg.data.frame_range[1]]
         )
 
         for guidance_image_path in guidance_image_lst:
