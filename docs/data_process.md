@@ -74,6 +74,7 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 
     Prepare a "dancing" video, and use `ffmpeg` to split it into frame images:
     ```shell
+    mkdir -p driving_videos/Video_1/images
     ffmpeg -i your_video_file.mp4 -c:v png driving_videos/Video_1/images/%04d.png
     ```
 
