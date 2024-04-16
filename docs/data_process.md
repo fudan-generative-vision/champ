@@ -74,6 +74,7 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 
     Prepare a "dancing" video, and use `ffmpeg` to split it into frame images:
     ```shell
+    mkdir -p driving_videos/Video_1/images
     ffmpeg -i your_video_file.mp4 -c:v png driving_videos/Video_1/images/%04d.png
     ```
 
@@ -126,7 +127,7 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
 5. Render SMPL via Blender
 
     ```shell
-    blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render_condition_maps.py --driving_path transferd_result/smpl_results --reference_path reference_imgs/images/your_ref_img_A.npy
+    blender scripts/data_processors/smpl/blend/smpl_rendering.blend --background --python scripts/data_processors/smpl/render_condition_maps.py --driving_path transferd_result/smpl_results --reference_path reference_imgs/images/your_ref_img_A.png
     ```
 
     This will rendering in CPU on default. Append `--device YOUR_GPU_ID` to select a GPU for rendering. It will skip the exsiting rendered frames under the `transferd_result`. Keep it in mind when you want to overwrite with new rendering results. Ignore the warning message like `unknown argument` printed by Blender.
