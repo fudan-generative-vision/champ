@@ -14,7 +14,7 @@ _Updated: 2024-04-09T14:27:06.463Z_
 |   ✅   | **[Model and test data on Huggingface](https://huggingface.co/fudan-generative-ai/champ)** | Tue Mar 26 2024 |
 |   ✅   | **[Optimize dependencies and go well on Windows](https://github.com/fudan-generative-vision/champ?tab=readme-ov-file#installation)** | Sun Mar 31 2024 |
 |   ✅   | **[Data preprocessing code release](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md)**                                                    | Fri Apr 12 2024 |
-|   🚀🚀🚀  | **[Gradio demo on HuggingFace]()**                                                  | Thu Apr 18 2024 |
-|   🚀🚀🚀  | **[Training code release]()**                                                  | Fri Apr 19 2024 |
 |   🚀🚀🚀  | **[Sample of training data release on HuggingFace]()**                                                  | Sat Apr 20 2024 |
+|   🚀🚀🚀  | **[Training code release]()**                                                  | Mon Apr 29 2024 |
+|   🚀  | **[Gradio demo on HuggingFace]()**                                                  | TBD |
 |   🚀  | **[Smoothing SMPL motion]()**                                                  | TBD |
