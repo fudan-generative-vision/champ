@@ -132,6 +132,8 @@ The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB V
 
 Try Champ with your dance videos! It may take time to setup the environment, follow the instruction step by step🐢, report issue when necessary. See our [instructions on data preparation](https://github.com/fudan-generative-vision/champ/tree/master/docs/data_process.md) here.
 
+Or you can download pre-rendered SMPL motions in our [HuggingFace Repo](https://huggingface.co/datasets/fudan-generative-ai/champ_motions_example).
+
 # ComfyUI tutorial
 
 Champ ComfyUI tutorial see [here](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A)!
