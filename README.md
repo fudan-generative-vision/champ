@@ -34,11 +34,11 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 - **`2024/04/12`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now💃🤸‍♂️🕺. See [docs](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
   
-- **`2024/03/30`**: 🚀🚀🚀Watch this amazing [video tutorial](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A). It's based on the **unofficial**(unstable) [Champ ComfyUI](https://github.com/kijai/ComfyUI-champWrapper?tab=readme-ov-file)🥳.
+- **`2024/03/30`**: 🚀🚀🚀Amazing [ComfyUI Wrapper](https://github.com/kijai/ComfyUI-champWrapper) by community. Here is the [video tutorial](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A). Thanks to [@kijai](https://github.com/kijai)🥳
   
-- **`2024/03/27`**: Cool Demo on [replicate](https://replicate.com/camenduru/champ)🌟, Thanks [camenduru](https://github.com/camenduru)!👏
+- **`2024/03/27`**: Cool Demo on [replicate](https://replicate.com/camenduru/champ)🌟. Thanks to [@camenduru](https://github.com/camenduru)👏
 
-- **`2024/03/27`**: Visit our [roadmap🕒](https://github.com/fudan-generative-vision/champ/blob/master/docs/ROADMAP.md) to preview the future of Champ.
+- **`2024/03/27`**: Visit our [roadmap🕒](#roadmap) to preview the future of Champ.
 
 # Installation
 
@@ -52,29 +52,40 @@ Create conda environment:
   conda activate champ
 ```
 
-## Install packages with `pip`
+Install packages with `pip`
 
 ```bash
   pip install -r requirements.txt
 ```
 
-## Install packages with [poetry](https://python-poetry.org/)
+Install packages with [poetry](https://python-poetry.org/)
 > If you want to run this project on a Windows device, we strongly recommend to use `poetry`.
 ```shell
 poetry install --no-root
 ```
 
-# Download pretrained models
+# Inference
 
-1. Download pretrained weight of base models:
+The inference entrypoint script is `${PROJECT_ROOT}/inference.py`. Before testing your cases, there are two preparations need to be completed:
+1. [Download all required pretrained models](#download-pretrained-models).
+2. [Prepare your guidance motions](#preparen-your-guidance-motions).
+2. [Run inference](#run-inference).
 
-   - [StableDiffusion V1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5)
-   - [sd-vae-ft-mse](https://huggingface.co/stabilityai/sd-vae-ft-mse)
-   - [image_encoder](https://huggingface.co/lambdalabs/sd-image-variations-diffusers/tree/main/image_encoder)
+## Download pretrained models
 
-2. Download our checkpoints: \
+You can easily get all pretrained models required by inference from our [HuggingFace repo](https://huggingface.co/fudan-generative-ai/champ).
 
-Our [checkpoints](https://huggingface.co/fudan-generative-ai/champ/tree/main) consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
+Clone the the pretrained models into `${PROJECT_ROOT}/pretrained_models` directory by cmd below:
+```shell
+git lfs install
+git clone https://huggingface.co/fudan-generative-ai/champ pretrained_models
+```
+
+Or you can download them separately from their source repo:
+   - [Champ ckpts](https://huggingface.co/fudan-generative-ai/champ/tree/main):  Consist of denoising UNet, guidance encoders, Reference UNet, and motion module.
+   - [StableDiffusion V1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5): Initialized and fine-tuned from Stable-Diffusion-v1-2. (*Thanks to runwayml*)
+   - [sd-vae-ft-mse](https://huggingface.co/stabilityai/sd-vae-ft-mse): Weights are intended to be used with the diffusers library. (*Thanks to stablilityai*)
+   - [image_encoder](https://huggingface.co/lambdalabs/sd-image-variations-diffusers/tree/main/image_encoder): Fine-tuned from CompVis/stable-diffusion-v1-4-original to accept CLIP image embedding rather than text embeddings. (*Thanks to lambdalabs*)
 
 Finally, these pretrained models should be organized as follows:
 
@@ -105,9 +116,43 @@ Finally, these pretrained models should be organized as follows:
     `-- v1-inference.yaml
 ```
 
-# Inference
+## Prepare your guidance motions
 
-We have provided several sets of [example data](https://huggingface.co/fudan-generative-ai/champ/tree/main) for inference. Please first download and place them in the `example_data` folder. 
+Guidance motion data which is produced via SMPL & Rendering is necessary when performing inference.
+
+You can download our pre-rendered samples on our [HuggingFace repo](https://huggingface.co/datasets/fudan-generative-ai/champ_motions_example) and place into `${PROJECT_ROOT}/example_data` directory:
+```shell
+git lfs install
+git clone https://huggingface.co/datasets/fudan-generative-ai/champ_motions_example example_data
+```
+
+Or you can follow the [SMPL & Rendering doc](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md) to produce your own motion datas.
+
+Finally, the `${PROJECT_ROOT}/example_data` will be like this:
+```
+./example_data/
+|-- motions/  # Directory includes motions per subfolder
+|   |-- motion-01/  # A motion sample
+|   |   |-- depth/  # Depth frame sequance
+|   |   |-- dwpose/ # Dwpose frame sequance
+|   |   |-- mask/   # Mask frame sequance
+|   |   |-- normal/ # Normal map frame sequance
+|   |   `-- semantic_map/ # Semanic map frame sequance
+|   |-- motion-02/
+|   |   |-- ...
+|   |   `-- ...
+|   `-- motion-N/
+|       |-- ...
+|       `-- ...
+`-- ref_images/ # Reference image samples(Optional)
+    |-- ref-01.png
+    |-- ...
+    `-- ref-N.png
+```
+
+## Run inference
+
+Now we have all prepared models and motions in `${PROJECT_ROOT}/pretrained_models` and `${PROJECT_ROOT}/example_data` separately. 
 
 Here is the command for inference:
 
@@ -120,29 +165,30 @@ If using `poetry`, command is
 poetry run python inference.py --config configs/inference/inference.yaml
 ```
 
-Animation results will be saved in `results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`.
-
-You can also extract the driving motion from any videos and then render with Blender. We will later provide the instructions and scripts for this.
+Animation results will be saved in `${PROJECT_ROOT}/results` folder. You can change the reference image or the guidance motion by modifying `inference.yaml`.
 
 The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB VRAM.
 
 **Note**: If your VRAM is insufficient, you can switch to a shorter motion sequence or cut out a segment from a long sequence. We provide a frame range selector in `inference.yaml`, which you can replace with a list of `[min_frame_index, max_frame_index]` to conveniently cut out a segment from the sequence.
 
-# SMPL & Rendering
+# Datasets
 
-Try Champ with your dance videos! It may take time to setup the environment, follow the instruction step by step🐢, report issue when necessary. See our [instructions on data preparation](https://github.com/fudan-generative-vision/champ/tree/master/docs/data_process.md) here.
-
-# ComfyUI tutorial
-
-Champ ComfyUI tutorial see [here](https://www.youtube.com/watch?app=desktop&v=cbElsTBv2-A)!
-
-# Acknowledgements
-
-We thank the authors of [MagicAnimate](https://github.com/magic-research/magic-animate), [Animate Anyone](https://github.com/HumanAIGC/AnimateAnyone), and [AnimateDiff](https://github.com/guoyww/AnimateDiff) for their excellent work. Our project is built upon [Moore-AnimateAnyone](https://github.com/MooreThreads/Moore-AnimateAnyone), and we are grateful for their open-source contributions.
-
+| Type | HuggingFace |       ETA       |
+| :----: | :----------------------------------------------------------------------------------------- | :-------------: |
+|   Inference   | **[SMPL motion samples](https://huggingface.co/datasets/fudan-generative-ai/champ_motions_example)** | Thu Apr 18 2024 |
+|   Training | **[Sample datasets for Training]()** | Coming Soon🚀🚀 |
 # Roadmap
 
-Visit [our roadmap](https://github.com/fudan-generative-vision/champ/blob/master/docs/ROADMAP.md) to preview the future of Champ.
+| Status | Milestone                                                                                  |       ETA       |
+| :----: | :----------------------------------------------------------------------------------------- | :-------------: |
+|   ✅   | **[Inference source code meet everyone on GitHub first time](https://github.com/fudan-generative-vision/champ)** | Sun Mar 24 2024 |
+|   ✅   | **[Model and test data on Huggingface](https://huggingface.co/fudan-generative-ai/champ)** | Tue Mar 26 2024 |
+|   ✅   | **[Optimize dependencies and go well on Windows](https://github.com/fudan-generative-vision/champ?tab=readme-ov-file#installation)** | Sun Mar 31 2024 |
+|   ✅   | **[Data preprocessing code release](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md)**                                                    | Fri Apr 12 2024 |
+|   🚀🚀🚀  | **[Gradio demo on HuggingFace]()**                                                  | Thu Apr 18 2024 |
+|   🚀🚀🚀  | **[Training code release]()**                                                  | Fri Apr 19 2024 |
+|   🚀🚀🚀  | **[Sample of training data release on HuggingFace]()**                                                  | Sat Apr 20 2024 |
+|   🚀  | **[Smoothing SMPL motion]()**                                                  | TBD |
 
 # Citation
 
