@@ -31,6 +31,7 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 ![framework](assets/framework.jpg)
 
 # News
+- **`2024/04/23`**: Champ WeChat group is created! Please refer to [Community](#Community) section.
 
 - **`2024/04/12`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now💃🤸‍♂️🕺. See [docs](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
   
@@ -189,6 +190,12 @@ The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB V
 |   🚀🚀🚀  | **[Training code release]()**                                                  | Fri Apr 19 2024 |
 |   🚀🚀🚀  | **[Sample of training data release on HuggingFace]()**                                                  | Sat Apr 20 2024 |
 |   🚀  | **[Smoothing SMPL motion]()**                                                  | TBD |
+
+# Community
+1. **WeChat Group**: We invit you to join our WeCat group of our comunity! Please scan the QR code below or search **ChampAssistant** in WeChat app. This account will invite you to the group.
+<div align=center><img src="assets/wechat.jpeg"  height="300px"/></div>
+
+2. **Discord Server**: Coming soon!
 
 # Citation
 
