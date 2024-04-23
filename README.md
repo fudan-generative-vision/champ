@@ -31,6 +31,7 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 ![framework](assets/framework.jpg)
 
 # News
+- **`2024/04/23`**: 🏆Champ WeChat group is created! Please scan the [QR code](assets/wechat.jpeg) or search **ChampAssistant** in WeChat app.👨🏻‍👩🏻‍👦🏻‍👦🏻
 
 - **`2024/04/12`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now💃🤸‍♂️🕺. See [docs](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
   
