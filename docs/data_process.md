@@ -111,9 +111,14 @@ Try Champ with your dance videos! It may take time to setup the environment, fol
     Once finished, you can check `reference_imgs/visualized_imgs` to see the overlay results. To better fit some extreme figures, you may also append `--figure_scale ` to manually change the figure(or shape) of predicted SMPL, from `-10`(extreme fat) to `10`(extreme slim).
 
 
-3. Smooth SMPL (optional)
+3. Smooth SMPL
 
-    **TODO:** Coming Soon.
+    ```shell
+    blender --background --python scripts/data_processors/smpl/smooth_smpls.py --smpls_group_path driving_videos/your_video_1/smpl_results/smpls_group.npz --smoothed_result_path driving_videos/your_video_1/smpl_results/smpls_group.npz
+    ```
+    Ignore the warning message like `unknown argument` printed by Blender. There is also a user-friendlty [CEB Blender Add-on](https://www.patreon.com/posts/ceb-4d-humans-0-102810302) to help you visualize it.
+
+
 
 4. Transfer SMPL
 
