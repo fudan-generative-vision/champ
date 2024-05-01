@@ -20,4 +20,5 @@ torchvision==0.17.2
 tqdm==4.66.1
 transformers==4.30.2
 xformers==0.0.25.post1
+tensorboard
 ultralytics==8.1.34
