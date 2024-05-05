@@ -33,6 +33,9 @@ https://github.com/fudan-generative-vision/champ/assets/82803297/b4571be6-dfb0-4
 
 # News
 
+- **`2024/05/05`**:  🎉🎉🎉[Sample training data on HuggingFace](https://huggingface.co/datasets/fudan-generative-ai/champ_trainning_sample) released.
+- **`2024/05/02`**:  🌟🌟🌟Training source code released [#99](https://github.com/fudan-generative-vision/champ/pull/99).
+- **`2024/04/28`**:  👏👏👏Smooth SMPLs in Blender method released [#96](https://github.com/fudan-generative-vision/champ/pull/96).
 - **`2024/04/26`**:  🚁Great Blender Adds-on [CEB Studios
 ](https://www.patreon.com/cebstudios/posts) for various SMPL process!
 - **`2024/04/12`**: ✨✨✨SMPL & Rendering scripts released! Champ your dance videos now💃🤸‍♂️🕺. See [docs](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
@@ -188,10 +191,10 @@ The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB V
 |   ✅   | **[Model and test data on Huggingface](https://huggingface.co/fudan-generative-ai/champ)** | Tue Mar 26 2024 |
 |   ✅   | **[Optimize dependencies and go well on Windows](https://github.com/fudan-generative-vision/champ?tab=readme-ov-file#installation)** | Sun Mar 31 2024 |
 |   ✅   | **[Data preprocessing code release](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md)**                                                    | Fri Apr 12 2024 |
-|   🚀🚀🚀  | **[Gradio demo on HuggingFace]()**                                                  | Thu Apr 18 2024 |
-|   🚀🚀🚀  | **[Training code release]()**                                                  | Fri Apr 19 2024 |
-|   🚀🚀🚀  | **[Sample of training data release on HuggingFace]()**                                                  | Sat Apr 20 2024 |
-|   🚀  | **[Smoothing SMPL motion]()**                                                  | TBD |
+|   ✅   | **[Training code release](https://github.com/fudan-generative-vision/champ/pull/99)**                                                  | Thu May 02 2024 |
+|   ✅   | **[Sample of training data release on HuggingFace](https://huggingface.co/datasets/fudan-generative-ai/champ_trainning_sample)**                                                  | Sun May 05 2024 |
+|   ✅  | **[Smoothing SMPL motion](https://github.com/fudan-generative-vision/champ/pull/96)**                                                  | Sun Apr 28 2024 |
+|   🚀🚀🚀  | **[Gradio demo on HuggingFace]()**                                                  | TBD |
 
 # Citation
 
