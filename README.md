@@ -174,12 +174,52 @@ The default motion-02 in `inference.yaml` has about 250 frames, requires ~20GB V
 
 **Note**: If your VRAM is insufficient, you can switch to a shorter motion sequence or cut out a segment from a long sequence. We provide a frame range selector in `inference.yaml`, which you can replace with a list of `[min_frame_index, max_frame_index]` to conveniently cut out a segment from the sequence.
 
+# Train the Model
+
+The training process consists of two distinct stages. For more information, refer to the `Training Section` in the [paper on arXiv](https://arxiv.org/abs/2403.14781).
+
+## Prepare Datasets
+
+Prepare your own training videos with human motion (or use [our sample training data on HuggingFace](https://huggingface.co/datasets/fudan-generative-ai/champ_trainning_sample)) and modify `data.video_folder` value in training config yaml.
+
+All training videos need to be processed into SMPL & DWPose format. Refer to the [Data Process doc](https://github.com/fudan-generative-vision/champ/blob/master/docs/data_process.md).
+
+The directory structure will be like this:
+```txt
+/training_data/
+|-- video01/          # A video data frame
+|   |-- depth/        # Depth frame sequance
+|   |-- dwpose/       # Dwpose frame sequance
+|   |-- mask/         # Mask frame sequance
+|   |-- normal/       # Normal map frame sequance
+|   `-- semantic_map/ # Semanic map frame sequance
+|-- video02/
+|   |-- ...
+|   `-- ...
+`-- videoN/
+|-- ...
+`-- ...
+```
+
+Select another small batch of data as the validation set, and modify the `validation.ref_images` and `validation.guidance_folders` roots in training config yaml.
+
+## Run Training Scripts
+
+To train the Champ model, use the following command:
+```shell
+# Run training script of stage1
+accelerate launch train_s1.py --config configs/train/stage1.yaml
+
+# Modify the `stage1_ckpt_dir` value in yaml and run training script of stage2
+accelerate launch train_s2.py --config configs/train/stage2.yaml
+```
+
 # Datasets
 
 | Type | HuggingFace |       ETA       |
 | :----: | :----------------------------------------------------------------------------------------- | :-------------: |
 |   Inference   | **[SMPL motion samples](https://huggingface.co/datasets/fudan-generative-ai/champ_motions_example)** | Thu Apr 18 2024 |
-|   Training | **[Sample datasets for Training]()** | Coming Soon🚀🚀 |
+|   Training | **[Sample datasets for Training](https://huggingface.co/datasets/fudan-generative-ai/champ_trainning_sample)** | Sun May 05 2024 |
 # Roadmap
 
 | Status | Milestone                                                                                  |       ETA       |
