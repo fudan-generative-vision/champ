@@ -560,7 +560,7 @@ def main(cfg):
                     ref_forcheck = batch['ref_img'] * 0.5 + 0.5
                     guid_forcheck = list(torch.chunk(batch['tgt_guid'], batch['tgt_guid'].shape[1]//3, dim=1))
                     batch_forcheck = torch.cat([ref_forcheck, img_forcheck] + guid_forcheck, dim=0)
-                    save_image(batch_forcheck, f'{cfg.output_dir}/{cfg.exp_name}/sanity_check/data-{global_step:06d}-rank{accelerator.device.index}.png', nrows=4)
+                    save_image(batch_forcheck, f'{cfg.output_dir}/{cfg.exp_name}/sanity_check/data-{global_step:06d}-rank{accelerator.device.index}.png', nrow=4)
                 # log validation                      
                 if global_step % cfg.validation.validation_steps == 0 or global_step == 1:
                     if accelerator.is_main_process:
