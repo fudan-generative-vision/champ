@@ -10,7 +10,6 @@ from pathlib import Path
 import os
 from ast import literal_eval
 from tqdm import tqdm
-from multiprocessing import Pool
 from contextlib import contextmanager
 import pathlib
 
@@ -78,32 +77,28 @@ def load_smpl(smpl_path):
 @contextmanager
 def stdout_redirected(to=os.devnull):
     """
-    import os
+    Redirects stdout to a specified file.
 
+    Usage:
     with stdout_redirected(to=filename):
         print("from Python")
         os.system("echo non-Python applications are also supported")
     """
     fd = sys.stdout.fileno()
 
-    ##### assert that Python and C stdio write using the same file descriptor
-    ####assert libc.fileno(ctypes.c_void_p.in_dll(libc, "stdout")) == fd == 1
+    # Save a copy of the original stdout file descriptor
+    original_stdout_fd = os.dup(fd)
 
-    def _redirect_stdout(to):
-        sys.stdout.close()  # + implicit flush()
-        os.dup2(to.fileno(), fd)  # fd writes to 'to' file
-        sys.stdout = os.fdopen(fd, "w")  # Python writes to fd
+    # Redirect stdout to the specified file
+    with open(to, 'w') as file:
+        os.dup2(file.fileno(), fd)
 
-    with os.fdopen(os.dup(fd), "w") as old_stdout:
-        with open(to, "w") as file:
-            _redirect_stdout(to=file)
-        try:
-            yield  # allow code to be run with the redirected stdout
-        finally:
-            _redirect_stdout(to=old_stdout)  # restore stdout.
-            # buffering and flags such as
-            # CLOEXEC may be different
-
+    try:
+        yield
+    finally:
+        # Restore the original stdout
+        os.dup2(original_stdout_fd, fd)
+        os.close(original_stdout_fd)
 
 def rendering_pipeline(dataset, ref_img_path):
     scene = bpy.context.scene
@@ -134,15 +129,10 @@ def rendering_pipeline(dataset, ref_img_path):
 
     result_dict_list = []
 
-    with Pool(4) as p:
-        processed = p.map(
-            load_smpl,
-            tqdm(
-                dataset.smpl_paths,
-                total=len(dataset.smpl_paths),
-                desc="Loading smpls into RAM",
-            ),
-        )
+    processed = []
+    for path in tqdm(dataset.smpl_paths, total=len(dataset.smpl_paths), desc="Loading smpls into RAM"):
+        result = load_smpl(path)
+        processed.append(result)
 
     for smpl in tqdm(processed, total=len(dataset.smpl_paths), desc="Loading smpls into RAM"):
         result_dict_list.append(smpl)
