@@ -1,3 +1,4 @@
+import platform
 import cv2
 from pathlib import Path
 import os
@@ -13,6 +14,11 @@ from scripts.pretrained_models import HMR2_DEFAULT_CKPT
 if "PYOPENGL_PLATFORM" not in os.environ:
     os.environ["PYOPENGL_PLATFORM"] = "egl"
 from hmr2.models import HMR2, download_models, load_hmr2
+
+# For Windows, remove PYOPENGL_PLATFORM to enable default rendering backend
+sys_name = platform.system()
+if sys_name == "Windows":
+    os.environ.pop("PYOPENGL_PLATFORM")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="transfer smpl")

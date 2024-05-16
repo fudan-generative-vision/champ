@@ -5,6 +5,7 @@ import argparse
 import torch
 import numpy as np
 from tqdm import tqdm
+import platform
 import pyrender
 
 from scripts.pretrained_models import (
@@ -20,6 +21,11 @@ from hmr2.utils import recursive_to
 from hmr2.datasets.vitdet_dataset import ViTDetDataset
 from hmr2.utils.renderer import Renderer, cam_crop_to_full
 from .smpl_visualizer import SemanticRenderer
+
+# For Windows, remove PYOPENGL_PLATFORM to enable default rendering backend
+sys_name = platform.system()
+if sys_name == "Windows":
+    os.environ.pop("PYOPENGL_PLATFORM")
 
 LIGHT_BLUE = (0.65098039, 0.74117647, 0.85882353)
 
