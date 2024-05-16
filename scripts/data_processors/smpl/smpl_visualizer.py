@@ -1,4 +1,5 @@
 import os
+import platform
 
 if "PYOPENGL_PLATFORM" not in os.environ:
     os.environ["PYOPENGL_PLATFORM"] = "egl"
@@ -10,6 +11,11 @@ import cv2
 from yacs.config import CfgNode
 from typing import List, Optional
 from hmr2.utils.renderer import Renderer
+
+# For Windows, remove PYOPENGL_PLATFORM to enable default rendering backend
+sys_name = platform.system()
+if sys_name == "Windows":
+    os.environ.pop("PYOPENGL_PLATFORM")
 
 def get_light_poses(n_lights=5, elevation=np.pi / 3, dist=12):
     # get lights in a circle around origin at elevation
