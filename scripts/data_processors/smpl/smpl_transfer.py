@@ -114,7 +114,7 @@ if __name__ == "__main__":
                 result_dict["cam_t"] = cam_t
                 result_dict["scaled_focal_length"] = foc_len
                 if args.figure_transfer:
-                    result_dict["smpls"] = smpl_outs["smpls"]
+                    result_dict["smpls"] = smpl_outs
                 if args.view_transfer:
                     scaled_focal_length = reference_dict["scaled_focal_length"]
                     result_dict["cam_t"] = reference_dict["cam_t"]
