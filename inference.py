@@ -294,10 +294,12 @@ def main(cfg):
         ]
     guidance_video_tensor = torch.stack(guidance_video_tensor_lst, dim=0)
 
-    grid_video = torch.cat([ref_video_tensor, result_video_tensor], dim=0)
-    grid_video_wguidance = torch.cat(
-        [ref_video_tensor, result_video_tensor, guidance_video_tensor], dim=0
-    )
+    # grid_video = torch.cat([ref_video_tensor, result_video_tensor], dim=0)
+    print(ref_video_tensor.shape, result_video_tensor.shape, guidance_video_tensor.shape)
+    grid_video = result_video_tensor
+    # grid_video_wguidance = torch.cat(
+    #     [ref_video_tensor, result_video_tensor, guidance_video_tensor], dim=0
+    # )
 
     save_videos_grid(grid_video, osp.join(save_dir, "grid.mp4"))
     save_videos_grid(grid_video_wguidance, osp.join(save_dir, "grid_wguidance.mp4"))
