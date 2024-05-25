@@ -302,7 +302,7 @@ def main(cfg):
     # )
 
     save_videos_grid(grid_video, osp.join(save_dir, "grid.mp4"))
-    save_videos_grid(grid_video_wguidance, osp.join(save_dir, "grid_wguidance.mp4"))
+    # save_videos_grid(grid_video_wguidance, osp.join(save_dir, "grid_wguidance.mp4"))
 
     logging.info(f"Inference completed, results saved in {save_dir}")
 
