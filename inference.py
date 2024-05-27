@@ -257,7 +257,14 @@ def main(cfg):
             raise ValueError(
                 "xformers is not available. Make sure it is installed correctly"
             )
-
+            
+    # Compile the models with torch.compile for faster performance
+    vae = torch.compile(vae)
+    image_enc = torch.compile(image_enc)
+    denoising_unet = torch.compile(denoising_unet)
+    reference_unet = torch.compile(reference_unet)
+    model = torch.compile(model)
+    
     ref_image_path = cfg.data.ref_image_path
     ref_image_pil = Image.open(ref_image_path)
     ref_image_w, ref_image_h = ref_image_pil.size
