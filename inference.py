@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 import os.path as osp
+from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from diffusers import AutoencoderKL, DDIMScheduler
 from diffusers.utils.import_utils import is_xformers_available
 from omegaconf import OmegaConf
 from PIL import Image
+from tqdm.auto import tqdm
 from transformers import CLIPVisionModelWithProjection
 
 from models.unet_2d_condition import UNet2DConditionModel
@@ -71,27 +73,31 @@ def combine_guidance_data(cfg):
     guidance_data_folder = cfg.data.guidance_data_folder
 
     guidance_pil_group = dict()
-    for guidance_type in guidance_types:
-        guidance_pil_group[guidance_type] = []
-        guidance_image_lst = sorted(
-            Path(osp.join(guidance_data_folder, guidance_type)).iterdir()
-        )
-        guidance_image_lst = (
-            guidance_image_lst
-            if not cfg.data.frame_range
-            else guidance_image_lst[cfg.data.frame_range[0]:cfg.data.frame_range[1]]
-        )
+    with ProcessPoolExecutor(64) as executor:
+        for guidance_type in guidance_types:
+            guidance_pil_group[guidance_type] = []
+            guidance_image_lst = sorted(
+                Path(osp.join(guidance_data_folder, guidance_type)).iterdir()
+            )
+            guidance_image_lst = (
+                guidance_image_lst
+                if not cfg.data.frame_range
+                else guidance_image_lst[cfg.data.frame_range[0]:cfg.data.frame_range[1]]
+            )
 
-        for guidance_image_path in guidance_image_lst:
-            # Add black background to semantic map
-            if guidance_type == "semantic_map":
-                guidance_pil_group[guidance_type] += [
-                    process_semantic_map(guidance_image_path)
-                ]
-            else:
-                guidance_pil_group[guidance_type] += [
-                    Image.open(guidance_image_path).convert("RGB")
-                ]
+            for guidance_image_path in guidance_image_lst:
+                # Add black background to semantic map
+                if guidance_type == "semantic_map":
+                    guidance_pil_group[guidance_type] += [
+                        executor.submit(process_semantic_map, guidance_image_path)
+                    ]
+                else:
+                    guidance_pil_group[guidance_type] += [
+                        executor.submit(Image.open, guidance_image_path)
+                    ]
+
+        for guidance_type in tqdm(guidance_types, desc="Loading guidance data"):
+            guidance_pil_group[guidance_type] = [pil.result().convert("RGB") for pil in guidance_pil_group[guidance_type]]
 
     # get video length from the first guidance sequence
     first_guidance_length = len(list(guidance_pil_group.values())[0])
