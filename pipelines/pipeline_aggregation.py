@@ -56,6 +56,7 @@ class MultiGuidance2LongVideoPipeline(DiffusionPipeline):
         image_proj_model=None,
         tokenizer=None,
         text_encoder=None,
+        guidance_process_size=None,
     ):
         super().__init__()
 
@@ -83,6 +84,7 @@ class MultiGuidance2LongVideoPipeline(DiffusionPipeline):
             do_convert_rgb=True,
             do_normalize=False,
         )
+        self.guidance_process_size = guidance_process_size
 
     def enable_vae_slicing(self):
         self.vae.enable_slicing()
@@ -467,7 +469,18 @@ class MultiGuidance2LongVideoPipeline(DiffusionPipeline):
 
             guidance_encoder = getattr(self, f"guidance_encoder_{guidance_type}")
             guidance_tensor = guidance_tensor.to(device, guidance_encoder.dtype)
-            guidance_fea_lst += [guidance_encoder(guidance_tensor)]
+            
+            if self.guidance_process_size:
+                num_loop = int(np.ceil(guidance_tensor.shape[2] / self.guidance_process_size))
+                guidance_tensor_lst = []
+                for i in range(num_loop):
+                    start = i * self.guidance_process_size
+                    end = (i + 1) * self.guidance_process_size
+                    guidance_tensor_chunk = guidance_tensor[:, :, start:end, :, :]
+                    guidance_tensor_lst += [guidance_encoder(guidance_tensor_chunk)]
+                guidance_fea_lst += [torch.concat(guidance_tensor_lst, axis=2)]
+            else:
+                guidance_fea_lst += [guidance_encoder(guidance_tensor)]
 
         guidance_fea = torch.stack(guidance_fea_lst).sum(0)
 
