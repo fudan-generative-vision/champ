@@ -14,9 +14,9 @@
     <sup>1</sup>Nanjing University <sup>2</sup>Fudan University <sup>3</sup>Alibaba Group
 </div>
 <div align='Center'>
-    <sup>*</sup>Equal Contribution
-    <sup>+</sup>Corresponding Author
+<i><strong><a href='https://eccv2024.ecva.net' target='_blank'>ECCV 2024</a></strong></i>
 </div>
+
 
 <div align='Center'>
     <a href='https://fudan-generative-vision.github.io/champ/#/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
@@ -241,13 +241,11 @@ accelerate launch train_s2.py --config configs/train/stage2.yaml
 If you find our work useful for your research, please consider citing the paper:
 
 ```
-@misc{zhu2024champ,
+@inproceedings{zhu2024champ,
       title={Champ: Controllable and Consistent Human Image Animation with 3D Parametric Guidance},
       author={Shenhao Zhu and Junming Leo Chen and Zuozhuo Dai and Yinghui Xu and Xun Cao and Yao Yao and Hao Zhu and Siyu Zhu},
-      year={2024},
-      eprint={2403.14781},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+      booktitle={European Conference on Computer Vision (ECCV)},
+      year={2024}
 }
 ```
 
